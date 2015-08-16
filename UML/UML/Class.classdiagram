@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="2987807c-a7ff-41f9-9025-75a3d488fba1" name="Class" linkedPackageId="a5349569-d4af-4c89-b7cc-dfc2c0549944" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <appliedStereotypesInternal>
+    <stereotypeInstance Id="fb2fc24d-c0d5-4362-8783-2c50b0617c32" name="namespace" profile="CSharpProfile">
+      <elementDefinition Id="03814ec9-081d-4ce0-87ef-7d15f705400f" />
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="4193d463-3cef-4cd3-a195-4d23a50dc77a">
+          <propertyInstance Id="a956589b-9fdb-4eac-b368-bc44629240c1" name="BaseName">
+            <elementDefinition Id="2a7a17c1-7a13-4d41-a522-3a43d566e1c8" />
+          </propertyInstance>
+          <elementDefinition Id="4d9da58c-f180-4a6f-838b-7e4d159fbbba" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="9f38bd80-d036-4b51-bf30-f1457d591e70">
+          <propertyInstance Id="95dd7aa9-86a3-44fd-bf62-9297f5ebfa6d" name="ClrAttributes">
+            <elementDefinition Id="b5a60e58-87c4-474a-837e-910f1b8bce2e" />
+          </propertyInstance>
+          <elementDefinition Id="3acdd7ad-d570-40b9-b10d-fe259fece480" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="9bb4690a-5028-43b8-b5cd-15dafaf8228f">
+          <propertyInstance Id="d1db0944-4869-4d7a-b6f6-2ca05d9f8e71" name="Usings">
+            <elementDefinition Id="296c43ad-2813-4da2-8d40-0cafdcd3f943" />
+          </propertyInstance>
+          <elementDefinition Id="6fade1f2-9b57-4567-aad3-f9386ed3e6e4" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+    <stereotypeInstance Id="2086ed44-3d1e-4537-b16e-63de871df64d" name="TextTemplateBindings" profile="TextTemplateBindings">
+      <elementDefinition Id="1522b771-1c19-4728-925a-99763293048e" />
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="bb297819-80c2-46af-ba31-7caae046dc05">
+          <propertyInstance Id="013affee-fa9d-4079-8ba0-0f9606573e42" name="Alias" value="ClassTemplate|EnumTemplate|InterfaceTemplate|StructTemplate">
+            <elementDefinition Id="067c7680-7d7e-4d27-9b97-bd62002507f0" />
+          </propertyInstance>
+          <elementDefinition Id="e8d8adaa-6e1b-4fde-b62e-95280d3988fa" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="f1ef4252-d3b6-4fa7-80f1-96ede2642f3e">
+          <propertyInstance Id="907afae8-7616-4c19-8f21-c9e54a8517a4" name="TemplateFilePath" value="ClassTemplate=C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4|EnumTemplate=C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4|InterfaceTemplate=C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\InterfaceTemplate.t4|StructTemplate=C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4">
+            <elementDefinition Id="93b7e305-e45d-4234-ade7-500212970345" />
+          </propertyInstance>
+          <elementDefinition Id="8d63a767-abaf-4c9e-bf1c-1b6c18aec196" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="25b53d4c-9adf-471b-9ec8-0f48b27ca34c">
+          <propertyInstance Id="34645216-e8c9-49d0-a156-3aa8af31dd98" name="ProjectPath" value="ClassTemplate=..\UMLLib\UMLLib.csproj|EnumTemplate=..\UMLLib\UMLLib.csproj|InterfaceTemplate=..\UMLLib\UMLLib.csproj|StructTemplate=..\UMLLib\UMLLib.csproj">
+            <elementDefinition Id="1c8aab02-02c5-418a-81f8-2acd015c5173" />
+          </propertyInstance>
+          <elementDefinition Id="e6f0b148-3689-442d-a456-e018360a5867" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="9c96a0e5-933f-4fde-b265-ff82fd95f3b6">
+          <propertyInstance Id="0c5e4bfb-8e83-45da-a92e-0597cde3308d" name="TargetDirectory" value="ClassTemplate=GeneratedCode\{PackageStructure}|EnumTemplate=GeneratedCode\{PackageStructure}|InterfaceTemplate=GeneratedCode\{PackageStructure}|StructTemplate=GeneratedCode\{PackageStructure}">
+            <elementDefinition Id="ef00b589-6ee4-45dd-8591-359153b9f467" />
+          </propertyInstance>
+          <elementDefinition Id="3a04d82c-131b-4cec-8d90-367f2e2cf68b" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="1d91c266-09e1-4e3c-9023-78c0e91fe6c6">
+          <propertyInstance Id="98190e4f-f1c6-4498-9904-40d43a021bf1" name="TargetName" value="ClassTemplate={Name}|EnumTemplate={Name}|InterfaceTemplate={Name}|StructTemplate={Name}">
+            <elementDefinition Id="2c64e7bd-fc35-4a42-b2b5-7d40a561f77a" />
+          </propertyInstance>
+          <elementDefinition Id="0a46891d-0091-4b47-9916-0598318a36bc" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="fcf37ed7-5508-4bf8-8e55-5c71c7f60947">
+          <propertyInstance Id="c7bd4d56-ffe7-402b-8d4d-c51f56ee6957" name="Overwrite" value="ClassTemplate=True|EnumTemplate=True|InterfaceTemplate=True|StructTemplate=True">
+            <elementDefinition Id="237470d8-3e2b-4727-8244-6a0326a08f6f" />
+          </propertyInstance>
+          <elementDefinition Id="6204ca60-6b17-44cd-8800-8d2535b7c348" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="ec4247e1-e22f-4e80-b5e6-89f20e436b36">
+          <propertyInstance Id="90d80c2e-6313-4cd7-83a3-f8e8ac256663" name="Parameters">
+            <elementDefinition Id="4a26b1bd-808b-428a-851c-350620b58a25" />
+          </propertyInstance>
+          <elementDefinition Id="33cb0dd6-c026-4d93-926b-6437a294ebff" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+  </appliedStereotypesInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="3702a78c-e8a4-4ab2-b9a9-7698fad5de75">
+      <profileInstance Id="79251e95-4c0e-4f96-9528-48f198c5a4c7" name="CSharpProfile">
+        <elementDefinition Id="d7bfbcbe-135f-47e8-9352-07a4fc5612ed" />
+      </profileInstance>
+      <elementDefinition Id="80d314a5-1173-45b8-988c-9de44ab7499a" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="986fc66e-59a4-4cac-a51b-0d4ea4a6fa63">
+      <profileInstance Id="3c89c1ee-3ce3-4194-b2d2-3e59d2eb736b" name="TextTemplateBindings">
+        <elementDefinition Id="492f98ec-cebc-4179-9ff0-a31795ce23dd" />
+      </profileInstance>
+      <elementDefinition Id="9e719768-d6db-4e5f-a326-e95f78e9b393" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="256c080f-ad61-4e61-84b5-08b86611745c" name="XPHttpParam" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="3171b0ed-e866-4e83-853f-9929f68e1133" />
+        <ownedAttributesInternal>
+          <property Id="e3814b6f-3b9b-443f-9c94-f3d1139ca8e2" name="_cookieContainer" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="580dd1de-3769-4839-b541-938c58893a14" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="bca55e47-d55d-4523-aab4-ca2584ee6dd9" LastKnownName="CookieContainer" />
+            </type_NamedElement>
+          </property>
+          <property Id="edb87273-5ed2-4143-ba6a-36fcc5e9b357" name="_headers" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="268363b2-9c75-45be-ad77-f2e53846eb51" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="89c22137-2752-4671-abbe-0f52ea296329" LastKnownName="Dictionary&lt;string, string&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="056409ca-7732-451d-9e5a-a27b68e704eb" name="_queryStrings" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="fe2caf90-f80a-4d5d-9ecf-f6bdffd75b74" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="89c22137-2752-4671-abbe-0f52ea296329" LastKnownName="Dictionary&lt;string, string&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="68d590fa-3473-461b-be78-6b1f8d045b55" name="_body" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="385b8e0d-8647-48c2-bd15-ed496331be22" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="71e03740-a3b9-4563-a8bb-f27c513d9462" name="DateFormatter {get;set;}" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f9b4f666-1788-42dc-964d-d87b1bdaa752" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="889b28e4-9773-49de-8bf9-ab03ea7e4b5b" LastKnownName="Func&lt;DateTime, string&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="5f0be655-681f-4870-a24e-878d05dcd19c" name="_urlSegments" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="8de4f912-8924-4a25-acca-6ed579cdf9e9" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="89c22137-2752-4671-abbe-0f52ea296329" LastKnownName="Dictionary&lt;string, string&gt;" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="78a09210-078f-4cad-99da-a964153e6e12" name="AddQueryString" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="5141303f-c80d-493a-a623-5c8424ca89f5" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8cdf6dae-005c-4e7a-8485-9a6fe27e868d" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="818fbb4b-2f26-4e3b-9ecb-cc4dabc032dd" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="e185155c-96fe-4af8-92ec-eb195db3284a" name="value" direction="In" isUnique="false">
+                  <elementDefinition Id="e3df70f3-6e86-4784-88b5-becbf04cd05d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="736f9cf1-8920-477d-89f4-468f8c7a88ad" name="SetBody" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="7438e066-eb49-4222-82fd-af2ab756b0cf" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="439d1536-b73f-44d2-af4c-387ff6d1bfd1" name="obj" direction="In" isUnique="false">
+                  <elementDefinition Id="b6e79357-3c42-45e0-b04f-ae16736a6bd2" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="beee98e6-c264-4880-a147-e9f7ab22f89f" LastKnownName="object" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="2f27205e-9390-483c-b951-8a19186b47c7" name="SetBody" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="198d8ee9-20d6-4fcb-8a35-acd7fcfad44e" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="074c844f-3a65-4ed4-b40a-56afded962f2" name="body" direction="In" isUnique="false">
+                  <elementDefinition Id="efe1f628-82c1-41c8-8027-95fef5d96c63" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="d0048179-585f-4de1-bcf9-6691f3472a0c" name="AddHeader" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="7435afe8-e4d6-4a07-a5ad-959af022c5ae" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7b4d2815-513d-4b3d-9196-26ca805a109d" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="d8145716-c682-474a-91f0-9209bec43afb" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6d61b67f-57d6-4a84-80b4-c5af9cbc7a3a" name="value" direction="In" isUnique="false">
+                  <elementDefinition Id="4cdfdfc5-afc5-4dcc-bc22-8645b19c717c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="1f059908-59cb-4d21-bce6-321e3363dc87" name="AddCookie" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e05d22ef-696d-4fc1-ab71-b7b8a081a845" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4d372ff6-6abc-4d10-b36c-125a3c5aa572" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="aef5f2f6-2666-4acd-9276-02d08715b219" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="c4cc2ea6-45dc-487b-87a3-b4a8340e4465" name="value" direction="In" isUnique="false">
+                  <elementDefinition Id="b9473e82-50fc-4ff6-bb0d-09d51a67633d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="fef02f75-3ede-4b61-95f8-7ec8967ae911" name="SetUrlSegment" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="84d458a3-2ba7-414f-9c20-0bdb6bcc34e6" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="87608889-c21e-4f23-9452-380e1f971673" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="0dda0750-34cb-4fd0-8c9f-e7b4c1be4cbf" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="3e0460a6-8a90-42ec-9213-98afee713063" name="value" direction="In" isUnique="false">
+                  <elementDefinition Id="5cd83d38-8788-4cdf-b780-5b73926f80d0" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="bca55e47-d55d-4523-aab4-ca2584ee6dd9" name="CookieContainer" isAbstract="false" isLeaf="false" cachedFullName="CookieContainer">
+        <elementDefinition Id="51b46ccc-7537-46b9-9507-1a27be1de6db" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="89c22137-2752-4671-abbe-0f52ea296329" name="Dictionary&lt;string, string&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;string, string&gt;">
+        <elementDefinition Id="c3d230a4-7732-4845-893f-6e8bd9217bff" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="78409c82-8744-4ace-968f-2e6868818a01" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d6776d92-d7b3-430f-ac07-4a5d3e817ae6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="889b28e4-9773-49de-8bf9-ab03ea7e4b5b" name="Func&lt;DateTime, string&gt;" isAbstract="false" isLeaf="false" cachedFullName="Func&lt;DateTime, string&gt;">
+        <elementDefinition Id="2df60bc3-a53c-4a9c-b7d1-8596fa06cdfd" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="96f74cc7-5597-4d06-aa57-6bf72c922b07" name="XPHttpResponseHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="cbb6214b-c3b8-44f0-a47a-b85fbac6ba77" />
+        <ownedAttributesInternal>
+          <property Id="c6614db9-3f69-46f3-b3db-4f2a1c781172" name="OnSuccess{get;set;}" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="04514e7d-6186-4bc0-af16-8bfb775acd92" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="1e309229-72e6-425b-abca-8549cb3515f8" LastKnownName="HttpCallback" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="db1fda13-4286-46dc-9a42-7a5c97550a75" name="XPHttpClient" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="06c459b3-5624-406e-add5-251eaf3f7c39" name="TextTemplateBindings" profile="TextTemplateBindings">
+            <elementDefinition Id="050f025c-171b-478c-b118-3ea72feabb40" />
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="cb610e24-eb5f-4b6a-8416-b761349d29ad">
+                <propertyInstance Id="3ef79d16-1e02-4508-aabb-26292a483fb9" name="Alias" value="Template1">
+                  <elementDefinition Id="e9e5211e-f414-4db7-a6ed-1ae0399609ce" />
+                </propertyInstance>
+                <elementDefinition Id="58a4db21-95d5-4a61-adc8-b5fb27952b80" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="d5f4db28-a66e-47c5-88fd-d7424df39bd2">
+                <propertyInstance Id="89df9372-aef5-41e8-ba06-5f1db078f0de" name="TemplateFilePath">
+                  <elementDefinition Id="c9c35355-5b64-4654-a442-f047e01ef9f6" />
+                </propertyInstance>
+                <elementDefinition Id="d6bd7e74-d777-4680-93ca-177e37855ee3" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="5f8fe4c9-fca7-4e5b-af99-895d2d70edb4">
+                <propertyInstance Id="45cb91ce-7e7c-4b50-946d-94561aeca01f" name="ProjectPath" value="Template1=..\UMLLib\UMLLib.csproj">
+                  <elementDefinition Id="96314435-295d-478f-b2e8-e90cc25f90e2" />
+                </propertyInstance>
+                <elementDefinition Id="1a244313-3f34-41b3-ab9f-39c8fc0324c6" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="c16f8a64-d5e8-4768-8a0c-d976ed2485fe">
+                <propertyInstance Id="71d1b8d1-a599-4d8b-b188-cc8707b2299f" name="TargetDirectory" value="Template1=GeneratedCode\{PackageStructure}">
+                  <elementDefinition Id="c1d9f578-5ee8-4309-bdc4-1521c5d34b67" />
+                </propertyInstance>
+                <elementDefinition Id="c72559c5-1a39-429a-8cb1-6cc7906ca329" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="963f3512-ebdf-42ec-b3d1-2946577d17ca">
+                <propertyInstance Id="6280789f-e141-4668-9e3b-179672b849e3" name="TargetName" value="Template1={Name}">
+                  <elementDefinition Id="b2bcc89f-9b85-4832-b31b-fb18e7e0f43c" />
+                </propertyInstance>
+                <elementDefinition Id="adf57f14-e971-4ea2-bf6f-2ac7e27a12c4" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="64bc58a3-3d78-4090-bd9b-c03391e2fd58">
+                <propertyInstance Id="d51a1994-202d-429b-ad9f-d08e70a1097e" name="Overwrite" value="Template1=True">
+                  <elementDefinition Id="19867f35-949b-4a93-9516-24faff9f494e" />
+                </propertyInstance>
+                <elementDefinition Id="d3ea3089-0979-413a-9135-612609fc37c7" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="f134795b-1672-465f-826e-9d156aefd39b">
+                <propertyInstance Id="80387592-3768-4083-86ca-b4221bfdd773" name="Parameters">
+                  <elementDefinition Id="299ccf0f-45ee-44a3-bfdb-f090b399ada6" />
+                </propertyInstance>
+                <elementDefinition Id="9965027a-c7e1-4e49-84b3-f606aad5a70e" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="082ee328-fbdb-433b-8747-be93c8b82b05" />
+        <ownedAttributesInternal>
+          <property Id="866f9992-ed08-4aa6-8b92-cdc2e2c5616b" name="_config" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d4641ce2-a296-4468-9891-09412abfaeee" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="69571e9e-44cf-48f9-9883-fcf048befa33" LastKnownName="XPHttpConfig" />
+            </type_NamedElement>
+          </property>
+          <property Id="fc18519f-c812-4640-818e-c53a08ec081e" name="_httpClient" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f6ebe69a-6ed8-4f3e-a45f-d1c2e57cc0a3" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="4579e990-df01-4c10-8dc1-8fc784c6b00a" LastKnownName="HttpClient" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="18141377-b31d-4733-afed-3998cfd1da19" name="SendRequest" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a7f92934-7cfc-4cf9-adad-471de97d9e4b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="76446775-795c-417b-838a-9db65d38b1f9" name="resUrl" direction="In" isUnique="false">
+                  <elementDefinition Id="4992a9b7-1177-4a9f-a633-1d6d870c3630" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5dbe8130-1558-4ac0-8764-294efede1cbe" name="httpParam" direction="In" isUnique="false">
+                  <elementDefinition Id="41c29c46-8666-4301-ac93-3b49e39e1c8f" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="17bc40e9-94c5-4eb5-858b-9b6b8e41f32e" LastKnownName="XPHttpParam" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ac989c1d-742a-4094-a4b8-264a7fac5bb3" name="responseHandler" direction="In" isUnique="false">
+                  <elementDefinition Id="45f59872-0312-4fc3-ad29-03ae8dc8cae8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f26f7198-8766-400b-aaa3-4545058fe555" LastKnownName="XPHttpResponseHandler" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="45021204-66c2-4969-963d-bfa1251527c0" name="Get" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a4048da8-708b-4cf5-82d7-478aa50d7fa8" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8fda1fe4-1967-46c8-adf6-1d2c45b9fd6c" name="resUrl" direction="In" isUnique="false">
+                  <elementDefinition Id="db3f59bb-7cb9-4e27-a1b0-d30db2b5b6fc" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="78409c82-8744-4ace-968f-2e6868818a01" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="88168ec5-c8a3-4d5c-b7df-0fc10c40aa53" name="httpParam" direction="In" isUnique="false">
+                  <elementDefinition Id="69c20bd9-25c9-4b23-bcfd-ca80eb11204c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="17bc40e9-94c5-4eb5-858b-9b6b8e41f32e" LastKnownName="XPHttpParam" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="a56118b2-6341-4897-8788-a21b20611483" name="responseHandler" direction="In" isUnique="false">
+                  <elementDefinition Id="490be64b-1d45-429a-96bd-fbe768e9a1b8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f26f7198-8766-400b-aaa3-4545058fe555" LastKnownName="XPHttpResponseHandler" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="0c62db1e-eaac-47a8-afba-c34af7b38ace" name="Config" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a1f4536e-a5f1-42d3-8838-b7e7e34b40b2" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="83a36465-e010-4d53-92bb-637a94f0678a" direction="Return" isUnique="false">
+                  <elementDefinition Id="e090a8b2-c983-4814-aa71-ca0c0777ba47" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="34943362-853f-492b-a9ad-11a0bcfb3f63" LastKnownName="XPHttpConfig" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="54d4d0ff-d3e5-4bac-a264-78965235b74e" name="SetHttpFilter" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="c620b059-e959-4177-af1d-afe7e63bf320" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="27fb0893-eaf6-4dd0-933d-7bf40f5d7d64" name="httpFilter" direction="In" isUnique="false">
+                  <elementDefinition Id="8062d398-806c-4ad0-b216-a6f6b0e04673" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="eee4633d-8570-49b9-86c8-b46364b0c227" LastKnownName="IHttpFilter" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="5ff9d8fd-60d7-440c-b0c1-8e44de007c57" name="Post" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="612d2943-a21d-48b1-badf-e05d7abedc27" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f397e1e7-0b2b-45f1-b974-9188e5580ee5" name="resUrl" direction="In" isUnique="false">
+                  <elementDefinition Id="5b1f5379-7b81-438d-a38d-05ce420887c6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="12ba95c3-2947-40c6-b8cf-0b875b6ad96b" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="720496dd-b295-453c-acf2-d664fa73cbfe" name="httpParam" direction="In" isUnique="false">
+                  <elementDefinition Id="720288b2-21ac-48fb-be23-10df8570fce9" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="17bc40e9-94c5-4eb5-858b-9b6b8e41f32e" LastKnownName="XPHttpParam" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4a8e91ed-9577-4b37-9bb8-a90ef450ca28" name="responseHandler" direction="In" isUnique="false">
+                  <elementDefinition Id="8154ef9e-0647-405f-9ea2-83810d980eba" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="292e80ae-260d-4cbe-9c35-c5dab4aac8f3" LastKnownName="XPHttpResponseHandler" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="f587d39f-4740-4038-bf98-067e95a54948" name="Delete" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="d706ed7a-08cc-4637-a219-73f7e69843b5" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6f6ffe62-1935-43b6-ba38-1859981ade05" name="resUrl" direction="In" isUnique="false">
+                  <elementDefinition Id="2d0b228c-203d-4229-a3b2-bbadfd04396b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="91ef13a6-253b-4a22-bb83-63bbba22ef87" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="72ce1833-bff1-4673-9f1d-ef440a186671" name="httpParam" direction="In" isUnique="false">
+                  <elementDefinition Id="ddc9e577-7c44-42f9-9003-437c0cf6698f" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="17bc40e9-94c5-4eb5-858b-9b6b8e41f32e" LastKnownName="XPHttpParam" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="dc54d2e0-138e-49f7-98c5-47da51e19bf5" name="responseHandler" direction="In" isUnique="false">
+                  <elementDefinition Id="03c4d8e2-ca77-4a3c-b247-e32ad66a4587" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="5ceaf7ec-a92e-4cd9-8021-94fd914bbc5e" LastKnownName="XPHttpResponseHandler" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="a69b789a-308e-4e3d-99cf-c84700784355" name="Put" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="65b165b7-0264-44fb-b567-2b1d562d4edd" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9ad31d25-1fd2-48f2-aef3-d21b5cfaffce" name="resUrl" direction="In" isUnique="false">
+                  <elementDefinition Id="72ec5abc-b199-4f1e-95a9-52eda93ba81f" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="1b114995-a48e-4798-81f7-68e4654b64cb" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9edac6e2-4234-4ee1-8564-88e3ac1f540c" name="httpParam" direction="In" isUnique="false">
+                  <elementDefinition Id="1b53e84f-1093-4eb0-8263-f7d64345fd6f" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="17bc40e9-94c5-4eb5-858b-9b6b8e41f32e" LastKnownName="XPHttpParam" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="68f934b6-17c5-4ee4-9af6-c60b6acf6d29" name="responseHandler" direction="In" isUnique="false">
+                  <elementDefinition Id="fb0e68a7-52be-44a8-81f6-4d4f2ef1be74" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="44069531-6088-406f-9416-ef147c6f72ec" LastKnownName="XPHttpResponseHandler" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="beee98e6-c264-4880-a147-e9f7ab22f89f" name="object" isAbstract="false" isLeaf="false" cachedFullName="object">
+        <elementDefinition Id="7c0474cc-08e8-40f7-8ac9-4be062412f43" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="bf131ea8-1f5d-47eb-8ddc-cabe5054e6e5" name="Utils" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="39f83b24-5401-438d-b406-122e82c40ed0" />
+        <ownedOperationsInternal>
+          <operation Id="6c16734b-aa19-4774-a5c5-fc79109360be" name="delegate HttpCallback" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="36d7d563-5e1f-43c5-971f-f6699fad412e" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7eb2170b-2b94-4ea4-a978-df16060c2662" name="httpResponse" direction="In" isUnique="false">
+                  <elementDefinition Id="1b711fc5-19b4-4c5f-89ce-44c429205bfb" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="5a733de2-d8cb-48a4-b224-f8fed1b08fd7" LastKnownName="HttpResponseMessage" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="f0d38351-6b0f-4691-a17b-870458443aef" name="XPHttpConfig" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1cdf4065-89a2-4f0f-a66c-0b6544306a24" />
+        <ownedAttributesInternal>
+          <property Id="6d8d280d-1eb1-4b89-a1af-5c57981683ee" name="BaseUrl" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="620f8135-9be6-4cbc-ba08-b4072a200a6e" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="b4f6de3c-e2ad-47ee-a813-70808b801a19" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="679b8e1e-2d1e-49f3-9bd2-37824a87ee8c" name="DefaultHeaders" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1b58eb88-3a3c-41aa-978d-68073b865268" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="98457a51-b947-4ddc-a199-37aa11b87ae8" LastKnownName="Dictionary&lt;string,string&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="411a3229-f646-4146-8131-0fc33228644b" name="DateFormatter {get;set;}" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="bfc6d6ae-a15d-4092-bbf2-be3675d8b3f7" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="8fc4da6e-5f4f-4f98-802d-d11042b95d59" LastKnownName="Func&lt;DateTime, string&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="0ffaf70e-9302-4078-b85e-c51920fb58c3" name="TimeOut" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b454a414-b248-4302-8359-668e47ade203" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="1035afa3-3acd-41b6-a26c-7c8f700bd67e" LastKnownName="int" />
+            </type_NamedElement>
+          </property>
+          <property Id="5e005108-bfa8-43ff-96cc-8168e71360f5" name="RetryTimes" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="ddded6c4-5edf-49e3-91b7-a62f64c2c6d4" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="1035afa3-3acd-41b6-a26c-7c8f700bd67e" LastKnownName="int" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="d2c4e372-0c31-4f79-a984-30cd4b219c01" name="SetBaseUrl" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cb73c5e3-dfe8-4eaa-9066-d276ec4c4b41" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6056686d-4b40-40ee-9d51-b25a759610bf" name="url" direction="In" isUnique="false">
+                  <elementDefinition Id="45e77550-8c49-499d-8f16-3f567fde38e2" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="d4488baf-0d97-4a87-818d-cb88525dc3a2" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="2e06eaa8-436a-4a23-b067-38a021c54851" direction="Return" isUnique="false">
+                  <elementDefinition Id="16191e2a-2d4e-47c5-b34c-598a90aaff7c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="5e652158-aac5-4c12-8623-172bf9f2022c" LastKnownName="XPHttpConfig" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="15c23d52-3fef-4df7-b3fd-45a89fd0f232" name="XPHttpClientFactory" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="39c258ae-781d-43ce-80e5-fd8c73682685" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="69571e9e-44cf-48f9-9883-fcf048befa33" name="XPHttpConfig" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpConfig">
+        <elementDefinition Id="1cdf4065-89a2-4f0f-a66c-0b6544306a24" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="34943362-853f-492b-a9ad-11a0bcfb3f63" name="XPHttpConfig" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpConfig">
+        <elementDefinition Id="1cdf4065-89a2-4f0f-a66c-0b6544306a24" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="d4488baf-0d97-4a87-818d-cb88525dc3a2" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d6776d92-d7b3-430f-ac07-4a5d3e817ae6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="5e652158-aac5-4c12-8623-172bf9f2022c" name="XPHttpConfig" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpConfig">
+        <elementDefinition Id="1cdf4065-89a2-4f0f-a66c-0b6544306a24" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="98457a51-b947-4ddc-a199-37aa11b87ae8" name="Dictionary&lt;string,string&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;string,string&gt;">
+        <elementDefinition Id="9b4d1e10-66d1-4365-bea0-23c372229792" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8fc4da6e-5f4f-4f98-802d-d11042b95d59" name="Func&lt;DateTime, string&gt;" isAbstract="false" isLeaf="false" cachedFullName="Func&lt;DateTime, string&gt;">
+        <elementDefinition Id="2df60bc3-a53c-4a9c-b7d1-8596fa06cdfd" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b4f6de3c-e2ad-47ee-a813-70808b801a19" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d6776d92-d7b3-430f-ac07-4a5d3e817ae6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1035afa3-3acd-41b6-a26c-7c8f700bd67e" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
+        <elementDefinition Id="4a5a336a-e4f4-4850-8702-cbd296441eed" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="d3d52b70-add2-4e27-be05-118e991daff9" name="RetryHttpFilter" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1b7983ab-e758-43fb-912f-470e46bc45c5" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="4579e990-df01-4c10-8dc1-8fc784c6b00a" name="HttpClient" isAbstract="false" isLeaf="false" cachedFullName="HttpClient">
+        <elementDefinition Id="c0abeb2f-66b7-45a7-b898-fa3783fb0756" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="5a733de2-d8cb-48a4-b224-f8fed1b08fd7" name="HttpResponseMessage" isAbstract="false" isLeaf="false" cachedFullName="HttpResponseMessage">
+        <elementDefinition Id="a4f3d7a4-0d19-4e35-bc5c-44543475a326" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="eee4633d-8570-49b9-86c8-b46364b0c227" name="IHttpFilter" isAbstract="false" isLeaf="false" cachedFullName="IHttpFilter">
+        <elementDefinition Id="7b8b6098-e714-433d-b03d-0e46fa1a536b" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f26f7198-8766-400b-aaa3-4545058fe555" name="XPHttpResponseHandler" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpResponseHandler">
+        <elementDefinition Id="cbb6214b-c3b8-44f0-a47a-b85fbac6ba77" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="12ba95c3-2947-40c6-b8cf-0b875b6ad96b" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d6776d92-d7b3-430f-ac07-4a5d3e817ae6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="292e80ae-260d-4cbe-9c35-c5dab4aac8f3" name="XPHttpResponseHandler" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpResponseHandler">
+        <elementDefinition Id="cbb6214b-c3b8-44f0-a47a-b85fbac6ba77" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="91ef13a6-253b-4a22-bb83-63bbba22ef87" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d6776d92-d7b3-430f-ac07-4a5d3e817ae6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="5ceaf7ec-a92e-4cd9-8021-94fd914bbc5e" name="XPHttpResponseHandler" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpResponseHandler">
+        <elementDefinition Id="cbb6214b-c3b8-44f0-a47a-b85fbac6ba77" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1b114995-a48e-4798-81f7-68e4654b64cb" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d6776d92-d7b3-430f-ac07-4a5d3e817ae6" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="44069531-6088-406f-9416-ef147c6f72ec" name="XPHttpResponseHandler" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpResponseHandler">
+        <elementDefinition Id="cbb6214b-c3b8-44f0-a47a-b85fbac6ba77" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="17bc40e9-94c5-4eb5-858b-9b6b8e41f32e" name="XPHttpParam" isAbstract="false" isLeaf="false" cachedFullName="UML::XPHttpParam">
+        <elementDefinition Id="3171b0ed-e866-4e83-853f-9929f68e1133" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1e309229-72e6-425b-abca-8549cb3515f8" name="HttpCallback" isAbstract="false" isLeaf="false" cachedFullName="HttpCallback">
+        <elementDefinition Id="794a7213-419b-41a2-8e61-63adf08b72f9" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="a5349569-d4af-4c89-b7cc-dfc2c0549944" name="UML">
+    <elementDefinition Id="c09d5267-72c6-4bb6-b0fb-df98a1cc0f9d" />
+    <profileInstances>
+      <packageHasProfileInstances Id="eec62f81-1348-44f7-9e6f-a022a91bd932">
+        <profileInstance Id="7aba3b95-340f-4577-ad22-47354bacd2a1" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="796fe9d5-0d73-4dd2-aaef-e82f1400edb3">
+        <profileInstance Id="c9ef2451-defd-44b2-95b1-c6510950fed3" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>
