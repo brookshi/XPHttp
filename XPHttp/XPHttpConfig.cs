@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Web.Http.Filters;
 
 namespace XPHttp
 {
     public class XPHttpConfig
     {
         public string BaseUrl { get; set; }
-        public Dictionary<string, string> GlobalHeaders { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> DefaultHeaders { get; set; } = new Dictionary<string, string>();
         public int TimeOut { get; set; } = 30;
         public int RetryTimes { get; set; } = 3;
         public Func<DateTime, string> DateFormatter { get; set; } = dateTime => { return dateTime.ToString("yyyy-MM-dd"); };
+        public IHttpFilter CustomHttpFilter { get; set; }
 
         public static XPHttpConfig Builder { get { return new XPHttpConfig(); } }
 
@@ -24,7 +26,7 @@ namespace XPHttp
 
         public XPHttpConfig SetGlobalHeaders(string name, string value)
         {
-            GlobalHeaders[name] = value;
+            DefaultHeaders[name] = value;
             return this;
         }
 
@@ -43,6 +45,12 @@ namespace XPHttp
         public XPHttpConfig SetDateFormatter(Func<DateTime, string> formatter)
         {
             DateFormatter = formatter;
+            return this;
+        }
+
+        public XPHttpConfig SetHttpFilter(IHttpFilter httpFilter)
+        {
+            CustomHttpFilter = httpFilter;
             return this;
         }
     }

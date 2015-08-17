@@ -44,6 +44,12 @@ namespace XPHttp
             return this;
         }
 
+        public XPHttpParam AddUrlSegements(string name, string value)
+        {
+            UrlSegments[name] = value;
+            return this;
+        }
+
         public XPHttpParam SetBodyString(string body)
         {
             Body = body;
