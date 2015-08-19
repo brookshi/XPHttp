@@ -34,7 +34,7 @@ namespace XPHttp
             return this;
         }
 
-        public XPHttpConfig SetGlobalHeaders(string name, string value)
+        public XPHttpConfig SetDefaultHeaders(string name, string value)
         {
             DefaultHeaders[name] = value;
             return this;
