@@ -12,7 +12,17 @@ namespace XPHttp
         public static HttpRequestMessage Clone(this HttpRequestMessage originRequest)
         {
             var request = new HttpRequestMessage(originRequest.Method, originRequest.RequestUri);
+            return request;
+        }
 
+        public static string UrlEncoding(this string url)
+        {
+            if(url == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return Uri.EscapeDataString(url);
         }
     }
 }

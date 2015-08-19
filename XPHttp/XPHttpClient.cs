@@ -15,9 +15,13 @@ namespace XPHttp
 
         private HttpClient _httpClient;
 
-        private IHttpFilter _httpFilter;
+        private IHttpFilter _httpRetryFilter;
 
         private CancellationTokenSource _cancellationTokenSource;
+
+        private XPHttpConfig HttpConfig {
+            get { return XPHttpConfig.Builder; }
+        }
 
         public XPHttpClient()
         {
@@ -30,11 +34,30 @@ namespace XPHttp
             {
                 _cancellationTokenSource.CancelAfter(config.TimeOut * 1000);
             }
-            _httpClient = new HttpClient(config.CustomHttpFilter);
+            _httpRetryFilter = new HttpRetryFilter(config);
+            _httpClient = new HttpClient(_httpRetryFilter);
             foreach (var header in config.DefaultHeaders)
             {
                 _httpClient.DefaultRequestHeaders.Add(header);
             }
+        }
+
+        string BuildUrl(string functionUrl, XPHttpParam param)
+        {
+            var url = HttpConfig.BaseUrl + functionUrl;
+            foreach(var segment in param.UrlSegments)
+            {
+                url = url.Replace("{" + segment.Key + "}", segment.Value.UrlEncoding());
+            }
+
+
+
+            return url;
+        }
+
+        public void GetAsync(string functionUrl, XPHttpParam param, IHttpResponseHandler responseHandler)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "");
         }
     }
 }

@@ -10,23 +10,23 @@ namespace XPHttp
 {
     public class XPHttpConfig
     {
-        private static HttpStatusCode[] _defaultHttpCodeForRetry = { HttpStatusCode.ServiceUnavailable };
+        public static XPHttpConfig Builder = new XPHttpConfig();
 
-        public string BaseUrl { get; set; }
+        private static HttpStatusCode[] _defaultHttStatuspCodeForRetry = { HttpStatusCode.ServiceUnavailable };
+
+        public string BaseUrl { get; set; } = string.Empty;
 
         public Dictionary<string, string> DefaultHeaders { get; set; } = new Dictionary<string, string>();
 
         public int TimeOut { get; set; } = 30;
 
-        public int Retries { get; set; } = 3;
+        public int RetryTimes { get; set; } = 3;
 
-        public List<HttpStatusCode> RetryForHttpCodes { get; set; } = new List<HttpStatusCode>(_defaultHttpCodeForRetry);
+        public List<HttpStatusCode> RetryForHttpStatusCodes { get; set; } = new List<HttpStatusCode>(_defaultHttStatuspCodeForRetry);
 
         public Func<DateTime, string> DateFormatter { get; set; } = dateTime => { return dateTime.ToString("yyyy-MM-dd"); };
 
         public IHttpFilter CustomHttpFilter { get; set; }
-
-        public static XPHttpConfig Builder { get { return new XPHttpConfig(); } }
 
         public XPHttpConfig SetBaseUrl(string baseUrl)
         {
@@ -48,7 +48,7 @@ namespace XPHttp
 
         public XPHttpConfig SetRetryTimes(int retryTimes)
         {
-            Retries = retryTimes;
+            RetryTimes = retryTimes;
             return this;
         }
 

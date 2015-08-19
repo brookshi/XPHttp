@@ -12,19 +12,33 @@ namespace XPHttp
     {
         private const string RETRIES = "_retries_";
         private IHttpFilter _innerFilter;
-        private int _retryTimes = 0;
-        private readonly IList<HttpStatusCode> _retryHttpCodes;
+        private int _retryTimes;
+        private IList<HttpStatusCode> _retryHttpCodes;
 
-        public HttpRetryFilter(IHttpFilter innerFilter, int retryTimes, IList<HttpStatusCode> retryHttpCodes)
+        public HttpRetryFilter(XPHttpConfig config)
         {
-            if(innerFilter == null)
+            if(config == null)
             {
-                throw new ArgumentNullException("innerFilter cannot be null.");
+                SetDefaultRetryProperty();
+                return;
+            }
+
+            var innerFilter = config.CustomHttpFilter;
+            if (innerFilter == null)
+            {
+                innerFilter = new HttpBaseProtocolFilter();
             }
 
             _innerFilter = innerFilter;
-            _retryTimes = Math.Max(0, retryTimes);
-            _retryHttpCodes = retryHttpCodes;
+            _retryTimes = Math.Max(0, config.RetryTimes);
+            _retryHttpCodes = config.RetryForHttpStatusCodes;
+        }
+
+        void SetDefaultRetryProperty()
+        {
+            _innerFilter = new HttpBaseProtocolFilter();
+            _retryTimes = 0;
+            _retryHttpCodes = new List<HttpStatusCode>();
         }
 
         public IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress> SendRequestAsync(HttpRequestMessage request)
@@ -34,7 +48,7 @@ namespace XPHttp
                 HttpResponseMessage response = await _innerFilter.SendRequestAsync(request).AsTask(cancellationToken, progress);
 
                 cancellationToken.ThrowIfCancellationRequested();
-
+                
                 if (_retryHttpCodes != null && _retryHttpCodes.Contains(response.StatusCode) && GetRetries(request) < _retryTimes)
                 {
                     IncreaseRetries(request);
