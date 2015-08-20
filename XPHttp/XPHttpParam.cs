@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using Windows.Web.Http;
 
 namespace XPHttp
 {
     public class XPHttpParam
     {
-        public string Body { get; set; }
-
-        public object BodyObj { get; set; }
+        public IHttpContent Body { get; set; }
 
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
@@ -50,15 +50,21 @@ namespace XPHttp
             return this;
         }
 
-        public XPHttpParam SetBodyString(string body)
+        public XPHttpParam SetBody(IHttpContent body)
         {
             Body = body;
             return this;
         }
 
-        public XPHttpParam SetBodyObject(object body)
+        public XPHttpParam SetStringBody(string body)
         {
-            BodyObj = body;
+            Body = new HttpStringContent(body);
+            return this;
+        }
+
+        public XPHttpParam SetStreamBody(IInputStream body)
+        {
+            Body = new HttpStreamContent(body);
             return this;
         }
     }

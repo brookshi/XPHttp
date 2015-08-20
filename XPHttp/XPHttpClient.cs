@@ -50,14 +50,23 @@ namespace XPHttp
                 url = url.Replace("{" + segment.Key + "}", segment.Value.UrlEncoding());
             }
 
-
+            foreach(var queryString in param.QueryStrings)
+            {
+                url = url.AppendQueryString(queryString);
+            }
 
             return url;
         }
 
-        public void GetAsync(string functionUrl, XPHttpParam param, IHttpResponseHandler responseHandler)
+        void ConfigRequest(HttpRequestMessage request, XPHttpParam httpParam)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "");
+            request.Content = httpParam.Body;
+        }
+
+        public void GetAsync(string functionUrl, XPHttpParam httpParam, IHttpResponseHandler responseHandler)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri(BuildUrl(functionUrl, httpParam)));
+
         }
     }
 }

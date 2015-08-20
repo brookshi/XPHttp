@@ -114,8 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension.cs" />
+    <Compile Include="HttpJsonContent.cs" />
     <Compile Include="HttpRetryFilter.cs" />
     <Compile Include="IHttpResponseHandler.cs" />
+    <Compile Include="ISerializer.cs" />
     <Compile Include="XPHttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XPHttpConfig.cs" />
