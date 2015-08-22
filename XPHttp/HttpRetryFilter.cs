@@ -11,45 +11,47 @@ namespace XPHttp
     public class HttpRetryFilter : IHttpFilter
     {
         private const string RETRIES = "_retries_";
-        private IHttpFilter _innerFilter;
-        private int _retryTimes;
-        private IList<HttpStatusCode> _retryHttpCodes;
 
-        public HttpRetryFilter(XPHttpConfig config)
+        public IHttpFilter InnerFilter { get; set; }
+
+        public int RetryTimes { get; set; }
+
+        public IList<HttpStatusCode> RetryHttpCodes { get; set; }
+
+        public HttpRetryFilter(IHttpFilter httpFilter, int retryTimes, IList<HttpStatusCode> retryHttpCodes)
         {
-            if(config == null)
-            {
-                SetDefaultRetryProperty();
-                return;
-            }
-
-            var innerFilter = config.CustomHttpFilter;
+            var innerFilter = httpFilter;
             if (innerFilter == null)
             {
                 innerFilter = new HttpBaseProtocolFilter();
             }
 
-            _innerFilter = innerFilter;
-            _retryTimes = Math.Max(0, config.RetryTimes);
-            _retryHttpCodes = config.RetryForHttpStatusCodes;
+            InnerFilter = innerFilter;
+            RetryTimes = Math.Max(0, retryTimes);
+            RetryHttpCodes = retryHttpCodes;
         }
 
-        void SetDefaultRetryProperty()
+        public HttpRetryFilter(int retryTimes, IList<HttpStatusCode> retryHttpCode) : this(null, retryTimes, retryHttpCode)
         {
-            _innerFilter = new HttpBaseProtocolFilter();
-            _retryTimes = 0;
-            _retryHttpCodes = new List<HttpStatusCode>();
+        }
+
+        public HttpRetryFilter(int retryTimes) : this(null, retryTimes, new HttpStatusCode[] { HttpStatusCode.ServiceUnavailable })
+        {
+        }
+
+        public HttpRetryFilter() : this(null, 0, new HttpStatusCode[] { HttpStatusCode.ServiceUnavailable })
+        {
         }
 
         public IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress> SendRequestAsync(HttpRequestMessage request)
         {
             return AsyncInfo.Run<HttpResponseMessage, HttpProgress>(async (cancellationToken, progress) =>
             {
-                HttpResponseMessage response = await _innerFilter.SendRequestAsync(request).AsTask(cancellationToken, progress);
+                HttpResponseMessage response = await InnerFilter.SendRequestAsync(request).AsTask(cancellationToken, progress);
 
                 cancellationToken.ThrowIfCancellationRequested();
                 
-                if (_retryHttpCodes != null && _retryHttpCodes.Contains(response.StatusCode) && GetRetries(request) < _retryTimes)
+                if (RetryHttpCodes != null && RetryHttpCodes.Contains(response.StatusCode) && GetRetries(request) < RetryTimes)
                 {
                     IncreaseRetries(request);
                     return await SendRequestAsync(request);
@@ -82,7 +84,7 @@ namespace XPHttp
 
         public void Dispose()
         {
-            _innerFilter.Dispose();
+            InnerFilter.Dispose();
         }
     }
 }

@@ -11,38 +11,33 @@ namespace XPHttp
 {
     public class XPHttpClient
     {
-        public static readonly XPHttpClient Instance = new XPHttpClient();
+        public static readonly XPHttpClient DefaultClient = new XPHttpClient();
 
         private HttpClient _httpClient;
 
-        private IHttpFilter _httpRetryFilter;
+        private HttpRetryFilter _httpRetryFilter;
 
-        private CancellationTokenSource _cancellationTokenSource;
-
-        private XPHttpConfig HttpConfig {
-            get { return XPHttpConfig.Builder; }
-        }
+        public XPHttpClientConfig HttpConfig;
 
         public XPHttpClient()
         {
-        }
-
-        public void Init(XPHttpConfig config)
-        {
-            _cancellationTokenSource = new CancellationTokenSource();
-            if (config.TimeOut > 0)
-            {
-                _cancellationTokenSource.CancelAfter(config.TimeOut * 1000);
-            }
-            _httpRetryFilter = new HttpRetryFilter(config);
+            _httpRetryFilter = new HttpRetryFilter();
             _httpClient = new HttpClient(_httpRetryFilter);
-            foreach (var header in config.DefaultHeaders)
-            {
-                _httpClient.DefaultRequestHeaders.Add(header);
-            }
+            HttpConfig = new XPHttpClientConfig(_httpClient.DefaultRequestHeaders, ApplyConfig);
+            ApplyConfig();
         }
 
-        string BuildUrl(string functionUrl, XPHttpParam param)
+        void ApplyConfig()
+        {
+            if (HttpConfig.CustomHttpFilter != null)
+            {
+                _httpRetryFilter.InnerFilter = HttpConfig.CustomHttpFilter;
+            }
+            _httpRetryFilter.RetryTimes = HttpConfig.RetryTimes;
+            _httpRetryFilter.RetryHttpCodes = HttpConfig.HttpStatusCodesForRetry;
+        }
+
+        string BuildUrl(string functionUrl, XPRequestParam param)
         {
             var url = HttpConfig.BaseUrl + functionUrl;
             foreach(var segment in param.UrlSegments)
@@ -58,15 +53,39 @@ namespace XPHttp
             return url;
         }
 
-        void ConfigRequest(HttpRequestMessage request, XPHttpParam httpParam)
+        void ConfigRequest(HttpRequestMessage request, XPRequestParam httpParam)
         {
             request.Content = httpParam.Body;
         }
 
-        public void GetAsync(string functionUrl, XPHttpParam httpParam, IHttpResponseHandler responseHandler)
+        public void GetAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri(BuildUrl(functionUrl, httpParam)));
+            SendRequestAsync(HttpMethod.Get, functionUrl, httpParam, responseHandler);
+        }
 
+        public async void SendRequestAsync(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
+
+            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p=> { responseHandler.OnProgress(p); });
+
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            if (HttpConfig.TimeOut != int.MaxValue && HttpConfig.TimeOut > 0)
+            {
+                cancellationTokenSource.CancelAfter(HttpConfig.TimeOut * 1000);
+            }
+
+            HttpResponseMessage response;
+            try
+            {
+                response = await _httpClient.SendRequestAsync(request).AsTask(cancellationTokenSource.Token, progress);
+                responseHandler.Handle(response);
+            }
+            catch (TaskCanceledException)
+            {
+                responseHandler.OnCancel(request);
+                return;
+            }
         }
     }
 }
