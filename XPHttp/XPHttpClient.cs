@@ -17,10 +17,11 @@ namespace XPHttp
 
         private HttpRetryFilter _httpRetryFilter;
 
-        public XPHttpClientConfig HttpConfig;
+        public XPHttpClientConfig HttpConfig { get; private set; }
 
         public XPRequestParam RequestParamBuilder {
-            get {
+            get
+            {
                 return new XPRequestParam();
             }
         }
@@ -39,6 +40,7 @@ namespace XPHttp
             {
                 _httpRetryFilter.InnerFilter = HttpConfig.CustomHttpFilter;
             }
+
             _httpRetryFilter.RetryTimes = HttpConfig.RetryTimes;
             _httpRetryFilter.RetryHttpCodes = HttpConfig.HttpStatusCodesForRetry;
         }
@@ -62,6 +64,10 @@ namespace XPHttp
         void ConfigRequest(HttpRequestMessage request, XPRequestParam httpParam)
         {
             request.Content = httpParam.Body;
+            foreach(var header in httpParam.Headers)
+            {
+                request.Headers.Append(header.Key, header.Value);
+            }
         }
 
         public void GetAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
@@ -69,9 +75,31 @@ namespace XPHttp
             SendRequestAsync(HttpMethod.Get, functionUrl, httpParam, responseHandler);
         }
 
+        public void PostAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
+        {
+            SendRequestAsync(HttpMethod.Get, functionUrl, httpParam, responseHandler);
+        }
+
+        public void PutAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
+        {
+            SendRequestAsync(HttpMethod.Get, functionUrl, httpParam, responseHandler);
+        }
+
+        public void DeleteAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
+        {
+            SendRequestAsync(HttpMethod.Get, functionUrl, httpParam, responseHandler);
+        }
+
+        public void PatchAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
+        {
+            SendRequestAsync(HttpMethod.Get, functionUrl, httpParam, responseHandler);
+        }
+
         public async void SendRequestAsync(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
         {
             HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
+
+            ConfigRequest(request, httpParam);
 
             IProgress<HttpProgress> progress = new Progress<HttpProgress>(p=> { responseHandler.OnProgress(p); });
 

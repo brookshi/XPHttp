@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Data.Json;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
@@ -15,7 +16,7 @@ namespace XPHttp
     {
         public IHttpContent Body { get; set; }
 
-        public HttpContentHeaderCollection Headers { get; } = new HttpContentHeaderCollection();
+        public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
         public Dictionary<string, string> QueryStrings { get; } = new Dictionary<string, string>();
 
@@ -31,7 +32,7 @@ namespace XPHttp
 
         public XPRequestParam AddHeader(string name, string value)
         {
-            Headers.Append(name, value);
+            Headers[name] = value;
             return this;
         }
 
@@ -56,6 +57,16 @@ namespace XPHttp
         {
             Body = body;
             return this;
+        }
+
+        public XPRequestParam SetJsonObjectBody(IJsonValue jsonValue)
+        {
+            return SetBody(new HttpJsonContent(jsonValue));
+        }
+
+        public XPRequestParam SetJsonStringBody(string jsonValue)
+        {
+            return SetBody(new HttpJsonContent(jsonValue));
         }
 
         public XPRequestParam SetStringBody(string body)
