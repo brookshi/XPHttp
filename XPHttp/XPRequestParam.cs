@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
+using XPHttp.HttpContent;
+using XPHttp.Serializer;
 
 namespace XPHttp
 {
@@ -20,12 +22,6 @@ namespace XPHttp
         public Dictionary<string, string> UrlSegments { get; } = new Dictionary<string, string>();
 
         public Dictionary<string, string> Cookies { get; } = new Dictionary<string, string>();
-
-
-        public XPRequestParam Builder()
-        {
-            return new XPRequestParam();
-        }
 
         public XPRequestParam AddCookie(string name, string value)
         {
@@ -49,6 +45,11 @@ namespace XPHttp
         {
             UrlSegments[name] = value;
             return this;
+        }
+
+        public XPRequestParam SetObjectBody(object obj, HttpContentType contentType)
+        {
+            return SetBody(HttpContentFactory.BuildHttpContent(contentType, obj));
         }
 
         public XPRequestParam SetBody(IHttpContent body)

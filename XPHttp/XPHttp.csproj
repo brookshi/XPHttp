@@ -114,10 +114,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension.cs" />
-    <Compile Include="HttpJsonContent.cs" />
+    <Compile Include="HttpContent\HttpContentFactory.cs" />
+    <Compile Include="HttpContent\HttpContentType.cs" />
+    <Compile Include="HttpContent\HttpJsonContent.cs" />
     <Compile Include="HttpRetryFilter.cs" />
     <Compile Include="IResponseHandler.cs" />
     <Compile Include="Serializer\ISerializer.cs" />
+    <Compile Include="Serializer\JsonParser.cs" />
+    <Compile Include="Serializer\JsonSerializer.cs" />
+    <Compile Include="Serializer\SerializerFactory.cs" />
+    <Compile Include="Serializer\SimpleJson.cs" />
     <Compile Include="XPHttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XPHttpClientConfig.cs" />

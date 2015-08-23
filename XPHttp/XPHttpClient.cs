@@ -19,6 +19,12 @@ namespace XPHttp
 
         public XPHttpClientConfig HttpConfig;
 
+        public XPRequestParam RequestParamBuilder {
+            get {
+                return new XPRequestParam();
+            }
+        }
+
         public XPHttpClient()
         {
             _httpRetryFilter = new HttpRetryFilter();

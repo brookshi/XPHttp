@@ -13,7 +13,7 @@ namespace XPHttp
     {
         public XPHttpClientConfig(HttpRequestHeaderCollection defaultHeaders, Action applyConfig)
         {
-            DefaultHeader = defaultHeaders;
+            DefaultRequestHeader = defaultHeaders;
             ApplyConfig = applyConfig;
         }
 
@@ -23,7 +23,7 @@ namespace XPHttp
 
         public string BaseUrl { get; set; } = string.Empty;
 
-        public HttpRequestHeaderCollection DefaultHeader { get; set; }
+        public HttpRequestHeaderCollection DefaultRequestHeader { get; set; }
 
         public int TimeOut { get; set; } = 30;
 
@@ -43,7 +43,7 @@ namespace XPHttp
 
         public XPHttpClientConfig SetDefaultHeaders(string name, string value)
         {
-            DefaultHeader.Append(name, value);
+            DefaultRequestHeader.Append(name, value);
             return this;
         }
 

@@ -9,7 +9,7 @@ namespace XPHttp
 {
     public interface IResponseHandler
     {
-        Action<HttpResponseMessage, object> OnSuccess { get; set; }
+        Action<HttpResponseMessage> OnSuccess { get; set; }
 
         Action<HttpResponseMessage> OnFailed { get; set; }
 

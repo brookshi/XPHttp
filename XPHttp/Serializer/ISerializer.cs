@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Data.Json;
 
-namespace XPHttp
+namespace XPHttp.Serializer
 {
     public interface ISerializer
     {
         string Serialize(object obj);
 
-        object Deserialize(string content);
+        T Deserialize<T>(string content);
     }
 }
