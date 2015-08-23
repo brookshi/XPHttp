@@ -48,14 +48,17 @@ namespace XPHttp
         string BuildUrl(string functionUrl, XPRequestParam param)
         {
             var url = HttpConfig.BaseUrl + functionUrl;
-            foreach(var segment in param.UrlSegments)
+            if (param != null)
             {
-                url = url.Replace("{" + segment.Key + "}", segment.Value.UrlEncoding());
-            }
+                foreach (var segment in param.UrlSegments)
+                {
+                    url = url.Replace("{" + segment.Key + "}", segment.Value.UrlEncoding());
+                }
 
-            foreach(var queryString in param.QueryStrings)
-            {
-                url = url.AppendQueryString(queryString);
+                foreach (var queryString in param.QueryStrings)
+                {
+                    url = url.AppendQueryString(queryString);
+                }
             }
 
             return url;
@@ -63,6 +66,9 @@ namespace XPHttp
 
         void ConfigRequest(HttpRequestMessage request, XPRequestParam httpParam)
         {
+            if (httpParam == null)
+                return;
+
             request.Content = httpParam.Body;
             foreach(var header in httpParam.Headers)
             {
@@ -119,6 +125,10 @@ namespace XPHttp
             {
                 responseHandler.OnCancel(request);
                 return;
+            }
+            catch(Exception)
+            {
+                throw new Exception("send request error");
             }
         }
     }

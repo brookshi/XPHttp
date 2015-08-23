@@ -120,7 +120,7 @@
     <Compile Include="HttpRetryFilter.cs" />
     <Compile Include="IResponseHandler.cs" />
     <Compile Include="Serializer\ISerializer.cs" />
-    <Compile Include="Serializer\JsonParser.cs" />
+    <Compile Include="Serializer\WinRTJson.cs" />
     <Compile Include="Serializer\JsonSerializer.cs" />
     <Compile Include="Serializer\SerializerFactory.cs" />
     <Compile Include="Serializer\SimpleJson.cs" />

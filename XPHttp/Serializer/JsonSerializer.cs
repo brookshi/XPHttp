@@ -13,28 +13,30 @@ namespace XPHttp.Serializer
     {
         public string Serialize(object obj)
         {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                var serializer = new DataContractJsonSerializer(obj.GetType());
-                serializer.WriteObject(stream, obj);
-                stream.Position = 0;
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
+            //using (MemoryStream stream = new MemoryStream())
+            //{
+            //    var serializer = new DataContractJsonSerializer(obj.GetType());
+            //    serializer.WriteObject(stream, obj);
+            //    stream.Position = 0;
+            //    using (StreamReader reader = new StreamReader(stream))
+            //    {
+            //        return reader.ReadToEnd();
+            //    }
+            //}
             //return SimpleJson.SimpleJson.SerializeObject(obj);
+            return WinRTJson.Serialize(obj);
         }
 
         public T Deserialize<T>(string content)
         {
-            var bytes = Encoding.Unicode.GetBytes(content);
-            using (MemoryStream stream = new MemoryStream(bytes))
-            {
-                var serializer = new DataContractJsonSerializer(typeof(T));
-                return (T)serializer.ReadObject(stream);
-            }
+            //var bytes = Encoding.Unicode.GetBytes(content);
+            //using (MemoryStream stream = new MemoryStream(bytes))
+            //{
+            //    var serializer = new DataContractJsonSerializer(typeof(T));
+            //    return (T)serializer.ReadObject(stream);
+            //}
             //return SimpleJson.SimpleJson.DeserializeObject<T>(content);
+            return WinRTJson.Deserialize(content);
         }
     }
 }

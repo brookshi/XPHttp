@@ -7,7 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    <StackPanel Margin="0,100,0,0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock Name="txt_cancel" />
+        <TextBlock Name="txt_finish" />
+        <TextBlock Name="txt_failed" />
+        <TextBlock Name="txt_success" />
+        <TextBlock Name="txt_progress" />
+    </StackPanel>
 </Page>
