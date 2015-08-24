@@ -27,8 +27,9 @@ namespace Sample
         public MainPage()
         {
             this.InitializeComponent();
-            XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/")
-                .SetDefaultHeaders("name", "value");
+            XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("https://adcim.morningstar.com/cim/common/{action}.action")
+                .SetDefaultHeaders("Host", "adcim.morningstar.com")
+                .
             Loaded += MainPage_Loaded;
         }
 
@@ -36,6 +37,7 @@ namespace Sample
         {
             Get();
         }
+
 
         public void Get()
         {

@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
+using XPHttp.HttpFilter;
 
 namespace XPHttp
 {
     public class XPHttpClientConfig
     {
-        public XPHttpClientConfig(HttpRequestHeaderCollection defaultHeaders, Action applyConfig)
+        public XPHttpClientConfig(HttpClient httpClient, ICustomHttpFilter retryHttpFilter, Action applyConfig)
         {
-            DefaultRequestHeader = defaultHeaders;
+            DefaultRequestHeader = httpClient.DefaultRequestHeaders;
+            CustomHttpFilter = retryHttpFilter;
             ApplyConfig = applyConfig;
         }
 
@@ -33,7 +35,9 @@ namespace XPHttp
 
         public Func<DateTime, string> DateFormatter { get; set; } = dateTime => { return dateTime.ToString("yyyy-MM-dd"); };
 
-        public IHttpFilter CustomHttpFilter { get; set; }
+        public ICustomHttpFilter CustomHttpFilter { get; private set; }
+
+        public Dictionary<string, string> Cookies { get; } = new Dictionary<string, string>();
 
         public XPHttpClientConfig SetBaseUrl(string baseUrl)
         {
@@ -65,9 +69,16 @@ namespace XPHttp
             return this;
         }
 
-        public XPHttpClientConfig SetHttpFilter(IHttpFilter httpFilter)
+        public XPHttpClientConfig AppendHttpFilter(ICustomHttpFilter httpFilter)
         {
+            CustomHttpFilter.InnerFilter = httpFilter;
             CustomHttpFilter = httpFilter;
+            return this;
+        }
+
+        public XPHttpClientConfig AddCookie(string name, string value)
+        {
+            Cookies[name] = value;
             return this;
         }
     }

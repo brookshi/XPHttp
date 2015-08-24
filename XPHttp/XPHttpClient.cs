@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using XPHttp.HttpFilter;
 
 namespace XPHttp
 {
@@ -16,6 +17,8 @@ namespace XPHttp
         private HttpClient _httpClient;
 
         private HttpRetryFilter _httpRetryFilter;
+
+        private HttpBaseProtocolFilter _baseFilter = new HttpBaseProtocolFilter();
 
         public XPHttpClientConfig HttpConfig { get; private set; }
 
@@ -30,19 +33,15 @@ namespace XPHttp
         {
             _httpRetryFilter = new HttpRetryFilter();
             _httpClient = new HttpClient(_httpRetryFilter);
-            HttpConfig = new XPHttpClientConfig(_httpClient.DefaultRequestHeaders, ApplyConfig);
+             HttpConfig = new XPHttpClientConfig(_httpClient, _httpRetryFilter, ApplyConfig);
             ApplyConfig();
         }
 
         void ApplyConfig()
         {
-            if (HttpConfig.CustomHttpFilter != null)
-            {
-                _httpRetryFilter.InnerFilter = HttpConfig.CustomHttpFilter;
-            }
-
             _httpRetryFilter.RetryTimes = HttpConfig.RetryTimes;
             _httpRetryFilter.RetryHttpCodes = HttpConfig.HttpStatusCodesForRetry;
+            HttpConfig.CustomHttpFilter.InnerFilter = _baseFilter;
         }
 
         string BuildUrl(string functionUrl, XPRequestParam param)
@@ -74,6 +73,7 @@ namespace XPHttp
             {
                 request.Headers.Append(header.Key, header.Value);
             }
+
         }
 
         public void GetAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)

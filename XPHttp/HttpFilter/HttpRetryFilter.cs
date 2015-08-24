@@ -6,9 +6,9 @@ using Windows.Foundation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
-namespace XPHttp
+namespace XPHttp.HttpFilter
 {
-    public class HttpRetryFilter : IHttpFilter
+    public class HttpRetryFilter : ICustomHttpFilter
     {
         private const string RETRIES = "_retries_";
 
@@ -18,28 +18,17 @@ namespace XPHttp
 
         public IList<HttpStatusCode> RetryHttpCodes { get; set; }
 
-        public HttpRetryFilter(IHttpFilter httpFilter, int retryTimes, IList<HttpStatusCode> retryHttpCodes)
+        public HttpRetryFilter(int retryTimes, IList<HttpStatusCode> retryHttpCodes)
         {
-            var innerFilter = httpFilter;
-            if (innerFilter == null)
-            {
-                innerFilter = new HttpBaseProtocolFilter();
-            }
-
-            InnerFilter = innerFilter;
             RetryTimes = Math.Max(0, retryTimes);
             RetryHttpCodes = retryHttpCodes;
         }
 
-        public HttpRetryFilter(int retryTimes, IList<HttpStatusCode> retryHttpCode) : this(null, retryTimes, retryHttpCode)
+        public HttpRetryFilter(int retryTimes) : this(retryTimes, new HttpStatusCode[] { HttpStatusCode.ServiceUnavailable })
         {
         }
 
-        public HttpRetryFilter(int retryTimes) : this(null, retryTimes, new HttpStatusCode[] { HttpStatusCode.ServiceUnavailable })
-        {
-        }
-
-        public HttpRetryFilter() : this(null, 0, new HttpStatusCode[] { HttpStatusCode.ServiceUnavailable })
+        public HttpRetryFilter() : this(0, new HttpStatusCode[] { HttpStatusCode.ServiceUnavailable })
         {
         }
 
