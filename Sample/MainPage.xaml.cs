@@ -39,7 +39,7 @@ namespace Sample
 
         public void Get()
         {
-            XPHttpClient.DefaultClient.GetAsync("stories/latest", null, new XPResponseHandler<RootObject>() {
+            XPHttpClient.DefaultClient.GetAsync("stories/latest", null, new XPResponseHandler<dynamic>() {
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
                 OnFinish = async responseMsg => { txt_finish.Text = "finish: " + await responseMsg.Content.ReadAsStringAsync(); },
                 OnFailed = async responseMsg => { txt_failed.Text = "failed: " + await responseMsg.Content.ReadAsStringAsync(); },
@@ -51,6 +51,8 @@ namespace Sample
 
     public class Story
     {
+        public Story(){}
+
         public List<string> images { get; set; }
         public int type { get; set; }
         public int id { get; set; }
@@ -61,6 +63,7 @@ namespace Sample
 
     public class TopStory
     {
+        public TopStory() { }
         public string image { get; set; }
         public int type { get; set; }
         public int id { get; set; }
@@ -70,6 +73,7 @@ namespace Sample
 
     public class RootObject
     {
+        public RootObject() { }
         public string date { get; set; }
         public List<Story> stories { get; set; }
         public List<TopStory> top_stories { get; set; }
