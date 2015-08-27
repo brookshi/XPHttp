@@ -139,6 +139,10 @@ namespace XPHttp
                 responseHandler.OnCancel(request);
                 return;
             }
+            catch(Exception e)
+            {
+
+            }
         }
     }
 }

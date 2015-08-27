@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -13,8 +14,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 using XPHttp;
 using XPHttp.HttpContent;
+using XPHttp.HttpFilter;
 using XPHttp.Serializer;
 
 //“空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 上有介绍
@@ -34,7 +37,9 @@ namespace Sample
                 .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123")
                 .SetTimeOut(45)
                 .SetRetryTimes(3)
-                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed);
+                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed)
+                .AppendHttpFilter(new MyHttpFilter())
+                .ApplyConfig();
         }
 
         public void Get()
@@ -78,6 +83,25 @@ namespace Sample
         private void Post_Click(object sender, RoutedEventArgs e)
         {
             Post();
+        }
+    }
+
+    public class MyHttpFilter : ICustomHttpFilter
+    {
+        public IHttpFilter InnerFilter
+        {
+            get; set;
+        }
+
+        public void Dispose()
+        {
+            
+        }
+
+        public IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress> SendRequestAsync(HttpRequestMessage request)
+        {
+            Debug.WriteLine("--------> MyHttpFilter");
+            return AsyncInfo.Run<HttpResponseMessage, HttpProgress>(async (cancelToken,progress)=>await InnerFilter.SendRequestAsync(request).AsTask());
         }
     }
 
