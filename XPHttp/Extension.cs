@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Windows.Web.Http;
 
 namespace XPHttp
 {
@@ -73,6 +74,25 @@ namespace XPHttp
             {
                 dict[keyValues[i]] = keyValues[i + 1];
             }
+        }
+
+        public static HttpRequestMessage Clone(this HttpRequestMessage originRequest)
+        {
+            var request = new HttpRequestMessage(originRequest.Method, originRequest.RequestUri);
+
+            foreach(var header in originRequest.Headers)
+            {
+                request.Headers.TryAppendWithoutValidation(header.Key, header.Value);
+            }
+
+            foreach(var property in originRequest.Properties)
+            {
+                request.Properties.Add(property);
+            }
+
+            request.Content = originRequest.Content;
+
+            return request;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace XPHttp.HttpFilter
                 if (RetryHttpCodes != null && RetryHttpCodes.Contains(response.StatusCode) && GetRetries(request) < RetryTimes)
                 {
                     IncreaseRetries(request);
-                    return await SendRequestAsync(request);
+                    return await SendRequestAsync(request.Clone());
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace XPHttp.HttpFilter
 
         void IncreaseRetries(HttpRequestMessage request)
         {
-            var retries = 0;
+            var retries = 1;
             if (request.Properties.ContainsKey(RETRIES))
             {
                 retries = int.Parse(request.Properties[RETRIES].ToString()) + 1;
