@@ -1,10 +1,22 @@
-﻿using System;
+﻿#region License
+//   Copyright 2015 Brook Shi
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License. 
+#endregion
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Web.Http;
-using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
 using XPHttp.HttpFilter;
 
@@ -51,9 +63,33 @@ namespace XPHttp
             return this;
         }
 
-        public XPHttpClientConfig SetTimeOut(int timeOut)
+        public XPHttpClientConfig SetDefaultHeaders(params string[] nameValue)
         {
-            TimeOut = timeOut;
+            if (nameValue.Length % 2 != 0)
+                throw new ArgumentException();
+
+            for (int i = 0; i < nameValue.Length; i += 2)
+            {
+                DefaultRequestHeader.Append(nameValue[i], nameValue[i + 1]);
+            }
+            return this;
+        }
+
+        public XPHttpClientConfig SetDefaultHeaders(string[] names, string[] values)
+        {
+            if (names.Length != values.Length)
+                throw new ArgumentException();
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                DefaultRequestHeader.Append(names[i], values[i]);
+            }
+            return this;
+        }
+
+        public XPHttpClientConfig SetTimeOut(int timeOutSec)
+        {
+            TimeOut = timeOutSec;
             return this;
         }
 
@@ -71,7 +107,8 @@ namespace XPHttp
 
         public XPHttpClientConfig AppendHttpFilter(ICustomHttpFilter httpFilter)
         {
-            CustomHttpFilter.InnerFilter = httpFilter;
+            var tempFilter = CustomHttpFilter;
+            tempFilter.InnerFilter = httpFilter;
             CustomHttpFilter = httpFilter;
             return this;
         }

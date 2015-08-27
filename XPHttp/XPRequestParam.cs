@@ -1,14 +1,24 @@
-﻿using System;
+﻿#region License
+//   Copyright 2015 Brook Shi
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License. 
+#endregion
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
-using Windows.Web.Http.Headers;
 using XPHttp.HttpContent;
-using XPHttp.Serializer;
 
 namespace XPHttp
 {
@@ -24,27 +34,63 @@ namespace XPHttp
 
         public Dictionary<string, string> Cookies { get; } = new Dictionary<string, string>();
 
-        public XPRequestParam AddCookie(string name, string value)
+        public XPRequestParam AddCookie(string key, string value)
         {
-            Cookies[name] = value;
+            Cookies[key] = value;
             return this;
         }
 
-        public XPRequestParam AddHeader(string name, string value)
+        public XPRequestParam AddHeader(string key, string value)
         {
-            Headers[name] = value;
+            Headers[key] = value;
             return this;
         }
 
-        public XPRequestParam AddQueryString(string name, string value)
+        public XPRequestParam AddHeader(params string[] keyValues)
         {
-            QueryStrings[name] = value;
+            Headers.AppendForDict<string>(keyValues);
             return this;
         }
 
-        public XPRequestParam AddUrlSegements(string name, string value)
+        public XPRequestParam AddHeader(string[] keys, string[] values)
         {
-            UrlSegments[name] = value;
+            Headers.AppendForDict<string, string>(keys, values);
+            return this;
+        }
+
+        public XPRequestParam AddQueryString(string key, string value)
+        {
+            QueryStrings[key] = value;
+            return this;
+        }
+
+        public XPRequestParam AddQueryString(params string[] keyValues)
+        {
+            QueryStrings.AppendForDict<string>(keyValues);
+            return this;
+        }
+
+        public XPRequestParam AddQueryString(string[] keys, string[] values)
+        {
+            QueryStrings.AppendForDict<string, string>(keys, values);
+            return this;
+        }
+
+        public XPRequestParam AddUrlSegements(string key, string value)
+        {
+            UrlSegments[key] = value;
+            return this;
+        }
+
+        public XPRequestParam AddUrlSegements(params string[] keyValues)
+        {
+            UrlSegments.AppendForDict<string>(keyValues);
+            return this;
+        }
+
+        public XPRequestParam AddUrlSegements(string[] keys, string[] values)
+        {
+            UrlSegments.AppendForDict<string, string>(keys, values);
             return this;
         }
 

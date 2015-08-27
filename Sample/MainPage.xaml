@@ -8,6 +8,10 @@
     mc:Ignorable="d">
 
     <StackPanel Margin="0,100,0,0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Get" Click="Get_Click"/>
+            <Button Content="Post" Click="Post_Click"/>
+        </StackPanel>
         <TextBlock Name="txt_cancel" />
         <TextBlock Name="txt_finish" />
         <TextBlock Name="txt_failed" />

@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using XPHttp;
+using XPHttp.HttpContent;
+using XPHttp.Serializer;
 
 //“空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 上有介绍
 
@@ -27,27 +29,52 @@ namespace Sample
         public MainPage()
         {
             this.InitializeComponent();
-            XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("https://adcim.morningstar.com/cim/common/{action}.action")
-                .SetDefaultHeaders("Host", "adcim.morningstar.com")
-                .
-            Loaded += MainPage_Loaded;
+            XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/")
+                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123")
+                .SetTimeOut(5)
+                .SetRetryTimes(3);
         }
-
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            Get();
-        }
-
 
         public void Get()
         {
-            XPHttpClient.DefaultClient.GetAsync("stories/latest", null, new XPResponseHandler<dynamic>() {
+            var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
+                .AddUrlSegements("action", "get", "date", "latest");
+
+            XPHttpClient.DefaultClient.GetAsync("stories/{date}", reqParam, new XPResponseHandler<dynamic>() {
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
                 OnFinish = async responseMsg => { txt_finish.Text = "finish: " + await responseMsg.Content.ReadAsStringAsync(); },
                 OnFailed = async responseMsg => { txt_failed.Text = "failed: " + await responseMsg.Content.ReadAsStringAsync(); },
                 OnProgress = progress => { txt_cancel.Text += progress.Stage.ToString(); },
                 OnSuccess = async (responseMsg, obj) => { txt_success.Text = "success: " + await responseMsg.Content.ReadAsStringAsync() + "\r\n"+obj.stories[0].id; },
             });
+        }
+
+        public void Post()
+        {
+            SerializerFactory.ReplaceSerializer(typeof(JsonSerializer), new SimpleJsonSerializer());
+
+            var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
+                .AddUrlSegements("action", "get", "date", "latest")
+                .SetBody(new HttpJsonContent(new { a="a", b=DateTime.Now }));
+
+            XPHttpClient.DefaultClient.PostAsync("stories/{date}", reqParam, new XPResponseHandler<dynamic>()
+            {
+                OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
+                OnFinish = async responseMsg => { txt_finish.Text = "finish: " + await responseMsg.Content.ReadAsStringAsync(); },
+                OnFailed = async responseMsg => { txt_failed.Text = "failed: " + await responseMsg.Content.ReadAsStringAsync(); },
+                OnProgress = progress => { txt_cancel.Text += progress.Stage.ToString(); },
+                OnSuccess = async (responseMsg, obj) => { txt_success.Text = "success: " + await responseMsg.Content.ReadAsStringAsync() + "\r\n" + obj.stories[0].id; },
+            });
+        }
+
+        private void Get_Click(object sender, RoutedEventArgs e)
+        {
+            Get();
+        }
+
+        private void Post_Click(object sender, RoutedEventArgs e)
+        {
+            Post();
         }
     }
 
