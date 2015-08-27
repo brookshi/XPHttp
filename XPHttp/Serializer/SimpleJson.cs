@@ -531,6 +531,11 @@ namespace SimpleJson
             EscapeTable['\t'] = 't';
         }
 
+        public static void SetDateFormats(params string[] formats)
+        {
+            PocoJsonSerializerStrategy.SetDateFormats(formats);
+        }
+
         /// <summary>
         /// Parses the string json into a value
         /// </summary>
@@ -1251,12 +1256,17 @@ namespace SimpleJson
         internal static readonly Type[] EmptyTypes = new Type[0];
         internal static readonly Type[] ArrayConstructorParameterTypes = new Type[] { typeof(int) };
 
-        private static readonly string[] Iso8601Format = new string[]
-                                                             {
-                                                                 @"yyyy-MM-dd\THH:mm:ss.FFFFFFF\Z",
-                                                                 @"yyyy-MM-dd\THH:mm:ss\Z",
-                                                                 @"yyyy-MM-dd\THH:mm:ssK"
-                                                             };
+        private string[] Iso8601Format = new string[]
+                                                {
+                                                    @"yyyy-MM-dd\THH:mm:ss.FFFFFFF\Z",
+                                                    @"yyyy-MM-dd\THH:mm:ss\Z",
+                                                    @"yyyy-MM-dd\THH:mm:ssK"
+                                                };
+
+        public void SetDateFormats(params string[] formats)
+        {
+            Iso8601Format = formats;
+        }
 
         public PocoJsonSerializerStrategy()
         {

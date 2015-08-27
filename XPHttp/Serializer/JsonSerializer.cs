@@ -40,5 +40,10 @@ namespace XPHttp.Serializer
         {
             return SimpleJson.SimpleJson.DeserializeObject<T>(content);
         }
+
+        public static void SetDateFormats(params string[] formats)
+        {
+            SimpleJson.SimpleJson.SetDateFormats(formats);
+        }
     }
 }

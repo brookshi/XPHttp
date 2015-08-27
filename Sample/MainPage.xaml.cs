@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 using XPHttp;
 using XPHttp.HttpContent;
 using XPHttp.Serializer;
@@ -31,8 +32,9 @@ namespace Sample
             this.InitializeComponent();
             XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/")
                 .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123")
-                .SetTimeOut(5)
-                .SetRetryTimes(3);
+                .SetTimeOut(45)
+                .SetRetryTimes(3)
+                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed);
         }
 
         public void Get()
@@ -52,6 +54,7 @@ namespace Sample
         public void Post()
         {
             SerializerFactory.ReplaceSerializer(typeof(JsonSerializer), new SimpleJsonSerializer());
+            SimpleJsonSerializer.SetDateFormats("yyyy-MM-dd");
 
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
                 .AddUrlSegements("action", "get", "date", "latest")

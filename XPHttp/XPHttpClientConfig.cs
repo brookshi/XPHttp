@@ -45,8 +45,6 @@ namespace XPHttp
 
         public List<HttpStatusCode> HttpStatusCodesForRetry { get; set; } = new List<HttpStatusCode>(_defaultHttStatuspCodeForRetry);
 
-        public Func<DateTime, string> DateFormatter { get; set; } = dateTime => { return dateTime.ToString("yyyy-MM-dd"); };
-
         public ICustomHttpFilter CustomHttpFilter { get; private set; }
 
         public Dictionary<string, string> Cookies { get; } = new Dictionary<string, string>();
@@ -99,9 +97,9 @@ namespace XPHttp
             return this;
         }
 
-        public XPHttpClientConfig SetDateFormatter(Func<DateTime, string> formatter)
+        public XPHttpClientConfig AddRetryStatusCode(HttpStatusCode statusCode)
         {
-            DateFormatter = formatter;
+            HttpStatusCodesForRetry.Add(statusCode);
             return this;
         }
 
