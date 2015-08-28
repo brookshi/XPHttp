@@ -1,5 +1,4 @@
 #XPHttp
-=======
 
 An asynchronous, callback-based Http client for UWP (Universal Windows Platform)
 
@@ -8,7 +7,7 @@ Features
 - Only supports Universal Windows Platform
 - Automatic XML and JSON serialization/deserialization
 - Supports custom serialization and deserialization via ISerializer and IDeserializer
-- friendly **params builder** (RequestParams)
+- Friendly **params builder** (RequestParams)
 - Automatic smart **request retries** optimized for spotty mobile connections
 - Supports RESTful API(GET, POST, PUT, DELETE, PATCH)
 
@@ -21,8 +20,7 @@ RoadMap
 
 Usage
 --------
-
-- ###init http client:
+####init http client:
 ``` java
 XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/") //base url
                 .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123") //global header
@@ -33,13 +31,13 @@ XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4
                 .ApplyConfig(); // apply to http client
 ```
         		
-- ###init param:
+####init param:
 ``` java
 var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321") // request header
                 .AddUrlSegements("action", "get", "date", "latest"); // url segments, replace {action} and {date} to "get" and "latest" in url
 ```
 				
-- ###request data:
+####request data:
 ``` java
 XPHttpClient.DefaultClient.GetAsync("stories/{date}" /*function url */, reqParam, new XPResponseHandler<dynamic>() { // callback
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
