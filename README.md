@@ -19,40 +19,40 @@ RoadMap
 - Supports oAuth
 
 
-How To Use
+Usage
 --------
 
 - ###init http client:
-<pre><code>
-XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/") <div style="color:green">//base url</div>
-                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123") <div style="color:green">//global header</div>
-                .SetTimeOut(45) <div style="color:green">// time out (second, default is 30)</div>
-                .SetRetryTimes(3) <div style="color:green">// retry times (default is 3)</div>
-                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed) <div style="color:green">// http status code for retry (default is ServiceUnavailable)</div>
-                .AppendHttpFilter(new MyHttpFilter()) <div style="color:green">//custom http filter</div>
-                .ApplyConfig(); <div style="color:green">// apply to http client</div>
-</code></pre>
-    			
-- ###init request param:
-<pre><code>
-var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321") <div style="color:green">// request header</div>
-                .AddUrlSegements("action", "get", "date", "latest"); <div style="color:green">// url segments, replace {action} and {date} to "get" and "latest" in url</div>
-</code></pre>
+``` java
+XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/") //base url
+                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123") //global header
+                .SetTimeOut(45) // time out (second, default is 30)
+                .SetRetryTimes(3) // retry times (default is 3)
+                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed) // http status code for retry (default is ServiceUnavailable)
+                .AppendHttpFilter(new MyHttpFilter()) //custom http filter
+                .ApplyConfig(); // apply to http client
+```
+        		
+- ###init param:
+``` java
+var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321") // request header
+                .AddUrlSegements("action", "get", "date", "latest"); // url segments, replace {action} and {date} to "get" and "latest" in url
+```
 				
 - ###request data:
-<pre><code>
-XPHttpClient.DefaultClient.GetAsync("stories/{date}" <div style="color:green">/*function url */</div>, reqParam, new XPResponseHandler<dynamic>() { <div style="color:green">// callback</div>
+``` java
+XPHttpClient.DefaultClient.GetAsync("stories/{date}" /*function url */, reqParam, new XPResponseHandler<dynamic>() { // callback
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
                 OnFinish = async responseMsg => { txt_finish.Text = "finish: " + await responseMsg.Content.ReadAsStringAsync(); },
                 OnFailed = async responseMsg => { txt_failed.Text = "failed: " + await responseMsg.Content.ReadAsStringAsync(); },
                 OnProgress = progress => { txt_cancel.Text += progress.Stage.ToString(); },
                 OnSuccess = async (responseMsg, obj) => { txt_success.Text = "success: " + await responseMsg.Content.ReadAsStringAsync() + "\r\n"+obj.stories[0].id; },
             });
-</code></pre>
+```
 
 License
 =======
-<pre><code>
+``` 
 Copyright 2015 Brook Shi
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,4 +66,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. 
-</code></pre>
+```
