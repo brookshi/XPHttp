@@ -19,29 +19,29 @@ RoadMap
 - Supports oAuth
 
 
-Usage
+How To Use
 --------
 
 - ###init http client:
 <pre><code>
-XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/") //base url
-                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123") //global header
-                .SetTimeOut(45) // time out (second, default is 30)
-                .SetRetryTimes(3) // retry times (default is 3)
-                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed) // http status code for retry (default is ServiceUnavailable)
-                .AppendHttpFilter(new MyHttpFilter()) //custom http filter
-                .ApplyConfig(); // apply to http client
+XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/") <div style="color:green">//base url</div>
+                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123") <div style="color:green">//global header</div>
+                .SetTimeOut(45) <div style="color:green">// time out (second, default is 30)</div>
+                .SetRetryTimes(3) <div style="color:green">// retry times (default is 3)</div>
+                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed) <div style="color:green">// http status code for retry (default is ServiceUnavailable)</div>
+                .AppendHttpFilter(new MyHttpFilter()) <div style="color:green">//custom http filter</div>
+                .ApplyConfig(); <div style="color:green">// apply to http client</div>
 </code></pre>
     			
-- ###init param:
+- ###init request param:
 <pre><code>
-var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321") // request header
-                .AddUrlSegements("action", "get", "date", "latest"); // url segments, replace {action} and {date} to "get" and "latest" in url
+var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321") <div style="color:green">// request header</div>
+                .AddUrlSegements("action", "get", "date", "latest"); <div style="color:green">// url segments, replace {action} and {date} to "get" and "latest" in url</div>
 </code></pre>
 				
 - ###request data:
 <pre><code>
-XPHttpClient.DefaultClient.GetAsync("stories/{date}" /*function url */, reqParam, new XPResponseHandler<dynamic>() { // callback
+XPHttpClient.DefaultClient.GetAsync("stories/{date}" <div style="color:green">/*function url */</div>, reqParam, new XPResponseHandler<dynamic>() { <div style="color:green">// callback</div>
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
                 OnFinish = async responseMsg => { txt_finish.Text = "finish: " + await responseMsg.Content.ReadAsStringAsync(); },
                 OnFailed = async responseMsg => { txt_failed.Text = "failed: " + await responseMsg.Content.ReadAsStringAsync(); },
