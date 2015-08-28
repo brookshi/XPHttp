@@ -19,7 +19,7 @@ RoadMap
 - Supports oAuth
 
 
-How To Use
+Usage
 --------
 
 - ###init http client:
@@ -33,7 +33,7 @@ XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4
                 .ApplyConfig(); // apply to http client
 </code></pre>
     			
-- ###init request param:
+- ###init param:
 <pre><code>
 var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321") // request header
                 .AddUrlSegements("action", "get", "date", "latest"); // url segments, replace {action} and {date} to "get" and "latest" in url
