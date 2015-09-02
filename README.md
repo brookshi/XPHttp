@@ -48,8 +48,14 @@ XPHttpClient.DefaultClient.GetAsync("stories/{date}" /*function url */, reqParam
             });
 ```
 
+NuGet
+--------
+``` java
+PM> Install-Package XPHttp 
+```
+
 License
-=======
+--------
 ``` 
 Copyright 2015 Brook Shi
 
