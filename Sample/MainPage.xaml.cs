@@ -47,11 +47,9 @@ namespace Sample
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
                 .AddUrlSegements("action", "get", "date", "latest");
 
-            XPHttpClient.DefaultClient.GetAsync("stories/{date}", reqParam, new XPResponseHandler<dynamic>() {
+            XPHttpClient.DefaultClient.GetAsync("stories/{date}", reqParam, new XPResponseHandler<RootObject>() {
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
-                OnFinish = async responseMsg => { txt_finish.Text = "finish: " + await responseMsg.Content.ReadAsStringAsync(); },
                 OnFailed = async responseMsg => { txt_failed.Text = "failed: " + await responseMsg.Content.ReadAsStringAsync(); },
-                OnProgress = progress => { txt_cancel.Text += progress.Stage.ToString(); },
                 OnSuccess = async (responseMsg, obj) => { txt_success.Text = "success: " + await responseMsg.Content.ReadAsStringAsync() + "\r\n"+obj.stories[0].id; },
             });
         }
@@ -65,7 +63,7 @@ namespace Sample
                 .AddUrlSegements("action", "get", "date", "latest")
                 .SetBody(new HttpJsonContent(new { a="a", b=DateTime.Now }));
 
-            XPHttpClient.DefaultClient.PostAsync("stories/{date}", reqParam, new XPResponseHandler<dynamic>()
+            XPHttpClient.DefaultClient.PostAsync("stories/{date}", reqParam, new XPResponseHandler<RootObject>()
             {
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
                 OnFinish = async responseMsg => { txt_finish.Text = "finish: " + await responseMsg.Content.ReadAsStringAsync(); },

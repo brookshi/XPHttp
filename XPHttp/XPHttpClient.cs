@@ -120,7 +120,7 @@ namespace XPHttp
 
             ConfigRequest(request, httpParam);
 
-            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p=> { responseHandler.OnProgress(p); });
+            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p=> { if(responseHandler.OnProgress != null) responseHandler.OnProgress(p); });
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             if (HttpConfig.TimeOut != int.MaxValue && HttpConfig.TimeOut > 0)

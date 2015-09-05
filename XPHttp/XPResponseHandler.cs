@@ -34,22 +34,22 @@ namespace XPHttp
 
         public virtual void Handle(HttpResponseMessage response)
         {
-            ExecIfNotNull(() => OnFinish(response));
+            ExecIfNotNull(OnFinish, response);
 
             if (response.IsSuccessStatusCode)
             {
-                ExecIfNotNull(() => OnSuccess(response));
+                ExecIfNotNull(OnSuccess, response);
             }
             else
             {
-                ExecIfNotNull(() => OnFailed(response));
+                ExecIfNotNull(OnFailed, response);
             }
         }
 
-        protected void ExecIfNotNull(Action action)
+        protected void ExecIfNotNull<HttpResponseMessage>(Action<HttpResponseMessage> action, HttpResponseMessage param)
         {
             if (action != null)
-                action();
+                action(param);
         }
     }
 
@@ -57,20 +57,26 @@ namespace XPHttp
     {
         public new Action<HttpResponseMessage, T> OnSuccess { get; set; }
 
+        protected void ExecIfNotNull<HttpResponseMessage, T>(Action<HttpResponseMessage, T> action, HttpResponseMessage param1, T param2)
+        {
+            if (action != null)
+                action(param1, param2);
+        }
+
         public override async void Handle(HttpResponseMessage response)
         {
-            ExecIfNotNull(() => OnFinish(response));
+            ExecIfNotNull(OnFinish, response);
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var serializer = SerializerFactory.GetSerializer(response.Content.Headers.ContentType.MediaType);
 
-                ExecIfNotNull(() => OnSuccess(response, serializer.Deserialize<T>(content)));
+                ExecIfNotNull(OnSuccess, response, serializer.Deserialize<T>(content));
             }
             else
             {
-                ExecIfNotNull(() => OnFailed(response));
+                ExecIfNotNull(OnFailed, response);
             }
         }
     }
