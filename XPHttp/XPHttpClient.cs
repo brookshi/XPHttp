@@ -15,11 +15,14 @@
 #endregion
 
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using XPHttp.HttpFilter;
+using XPHttp.Serializer;
 
 namespace XPHttp
 {
@@ -114,6 +117,32 @@ namespace XPHttp
             SendRequestAsync(HttpMethod.Patch, functionUrl, httpParam, responseHandler);
         }
 
+        public async Task<T> GetAsync<T>(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            return await SendRequestAsync<T>(HttpMethod.Get, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task<T> PostAsync<T>(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            return await SendRequestAsync<T>(HttpMethod.Post, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task<T> PutAsync<T>(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            return await SendRequestAsync<T>(HttpMethod.Put, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task<T> DeleteAsync<T>(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            return await SendRequestAsync<T>(HttpMethod.Delete, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task<T> PatchAsync<T>(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            return await SendRequestAsync<T>(HttpMethod.Patch, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+
         public async void SendRequestAsync(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
         {
             HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
@@ -138,6 +167,43 @@ namespace XPHttp
             {
                 responseHandler.OnCancel(request);
                 return;
+            }
+        }
+
+        public async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress, Action<HttpRequestMessage> onCancel)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
+
+            ConfigRequest(request, httpParam);
+
+            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p => { if (onProgress != null) onProgress(p); });
+
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            if (HttpConfig.TimeOut != int.MaxValue && HttpConfig.TimeOut > 0)
+            {
+                cancellationTokenSource.CancelAfter(HttpConfig.TimeOut * 1000);
+            }
+
+            try
+            {
+                return await _httpClient.SendRequestAsync(request).AsTask(cancellationTokenSource.Token, progress).ContinueWith(async responseTask =>
+                {
+                    var response = responseTask.Result;
+                    if (!response.IsSuccessStatusCode)
+                        return default(T);
+
+                    var content = await response.Content.ReadAsStringAsync();
+                    var serializer = SerializerFactory.GetSerializer(response.Content.Headers.ContentType.MediaType);
+
+                    return serializer.Deserialize<T>(content);
+                }).Unwrap();
+            }
+            catch (TaskCanceledException)
+            {
+                if(onCancel != null)
+                    onCancel(request);
+
+                return default(T);
             }
         }
     }

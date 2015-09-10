@@ -54,6 +54,15 @@ namespace Sample
             });
         }
 
+        public async void GetTask()
+        {
+            var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
+                .AddUrlSegements("action", "get", "date", "latest");
+
+            var obj = await XPHttpClient.DefaultClient.GetAsync<RootObject>("stories/{date}", reqParam);
+            txt_success.Text = "success: " + obj.date + "\r\n" + obj.stories[0].id;
+        }
+
         public void Post()
         {
             SerializerFactory.ReplaceSerializer(typeof(JsonSerializer), new SimpleJsonSerializer());
@@ -75,7 +84,8 @@ namespace Sample
 
         private void Get_Click(object sender, RoutedEventArgs e)
         {
-            Get();
+            //Get();
+            GetTask();
         }
 
         private void Post_Click(object sender, RoutedEventArgs e)
