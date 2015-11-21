@@ -157,7 +157,7 @@ namespace XPHttp
                 cancellationTokenSource.CancelAfter(HttpConfig.TimeOut * 1000);
             }
 
-            HttpResponseMessage response;
+            HttpResponseMessage response = null;
             try
             {
                 response = await _httpClient.SendRequestAsync(request).AsTask(cancellationTokenSource.Token, progress);
@@ -165,8 +165,17 @@ namespace XPHttp
             }
             catch (TaskCanceledException)
             {
-                responseHandler.OnCancel(request);
-                return;
+                if(responseHandler.OnCancel != null)
+                {
+                    responseHandler.OnCancel(request);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (responseHandler.OnFailed != null)
+                {
+                    responseHandler.OnFailed(new HttpResponseMessage() { Content = new HttpStringContent(ex.ToString()) });
+                }
             }
         }
 
@@ -203,6 +212,10 @@ namespace XPHttp
                 if(onCancel != null)
                     onCancel(request);
 
+                return default(T);
+            }
+            catch(Exception)
+            {
                 return default(T);
             }
         }

@@ -60,7 +60,10 @@ namespace Sample
                 .AddUrlSegements("action", "get", "date", "latest");
 
             var obj = await XPHttpClient.DefaultClient.GetAsync<RootObject>("stories/{date}", reqParam);
-            txt_success.Text = "success: " + obj.date + "\r\n" + obj.stories[0].id;
+            if (obj == null)
+                txt_success.Text = "failed";
+            else
+                txt_success.Text = "success: " + obj.date + "\r\n" + obj.stories[0].id;
         }
 
         public void Post()
