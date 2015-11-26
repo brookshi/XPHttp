@@ -1146,14 +1146,14 @@ namespace SimpleJson
 
         static bool SerializeNumber(object number, StringBuilder builder)
         {
-            if (number is long)
-                builder.Append(((long)number).ToString(CultureInfo.InvariantCulture));
+            if (number is uint)
+                builder.Append(((uint)number).ToString(CultureInfo.InvariantCulture));
+            else if(number is int)
+                builder.Append(((int)number).ToString(CultureInfo.InvariantCulture));
             else if (number is ulong)
                 builder.Append(((ulong)number).ToString(CultureInfo.InvariantCulture));
-            else if (number is int)
-                builder.Append(((int)number).ToString(CultureInfo.InvariantCulture));
-            else if (number is uint)
-                builder.Append(((uint)number).ToString(CultureInfo.InvariantCulture));
+            else if(number is long)
+                builder.Append(((long)number).ToString(CultureInfo.InvariantCulture));
             else if (number is decimal)
                 builder.Append(((decimal)number).ToString(CultureInfo.InvariantCulture));
             else if (number is float)
