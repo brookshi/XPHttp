@@ -47,8 +47,6 @@ namespace XPHttp
 
         public ICustomHttpFilter CustomHttpFilter { get; private set; }
 
-        public Dictionary<string, string> Cookies { get; } = new Dictionary<string, string>();
-
         public XPHttpClientConfig SetBaseUrl(string baseUrl)
         {
             BaseUrl = baseUrl;
@@ -85,6 +83,18 @@ namespace XPHttp
             return this;
         }
 
+        public XPHttpClientConfig SetAuthorization(string scheme, string authorization)
+        {
+            DefaultRequestHeader.Authorization = new HttpCredentialsHeaderValue(scheme, authorization);
+            return this;
+        }
+
+        public XPHttpClientConfig SetCookeie(string name, string value)
+        {
+            DefaultRequestHeader.Cookie.Add(new HttpCookiePairHeaderValue(name, value));
+            return this;
+        }
+
         public XPHttpClientConfig SetTimeOut(int timeOutSec)
         {
             TimeOut = timeOutSec;
@@ -108,12 +118,6 @@ namespace XPHttp
             var tempFilter = CustomHttpFilter;
             tempFilter.InnerFilter = httpFilter;
             CustomHttpFilter = httpFilter;
-            return this;
-        }
-
-        public XPHttpClientConfig AddCookie(string name, string value)
-        {
-            Cookies[name] = value;
             return this;
         }
     }

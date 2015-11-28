@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using Windows.Web.Http.Headers;
 using XPHttp.HttpFilter;
 using XPHttp.Serializer;
 
@@ -81,15 +82,7 @@ namespace XPHttp
 
         void ConfigRequest(HttpRequestMessage request, XPRequestParam httpParam)
         {
-            if (httpParam == null)
-                return;
-
-            request.Content = httpParam.Body;
-            foreach(var header in httpParam.Headers)
-            {
-                request.Headers.Append(header.Key, header.Value);
-            }
-
+            httpParam.ApplyToRequester(request);
         }
 
         public void GetAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)

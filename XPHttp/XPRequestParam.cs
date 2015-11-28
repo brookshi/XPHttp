@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using Windows.Data.Json;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 using XPHttp.HttpContent;
 
 namespace XPHttp
@@ -26,6 +27,8 @@ namespace XPHttp
     {
         public IHttpContent Body { get; set; }
 
+        public string SchemeAuthorization { get; set; }
+
         public string Authorization { get; set; }
 
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
@@ -33,14 +36,6 @@ namespace XPHttp
         public Dictionary<string, string> QueryStrings { get; } = new Dictionary<string, string>();
 
         public Dictionary<string, string> UrlSegments { get; } = new Dictionary<string, string>();
-
-        public Dictionary<string, string> Cookies { get; } = new Dictionary<string, string>();
-
-        public XPRequestParam AddCookie(string key, string value)
-        {
-            Cookies[key] = value;
-            return this;
-        }
 
         public XPRequestParam AddHeader(string key, string value)
         {
@@ -129,10 +124,25 @@ namespace XPHttp
             return this;
         }
 
-        public XPRequestParam SetAuthorization(string authorization)
+        public XPRequestParam SetAuthorization(string scheme, string authorization)
         {
+            SchemeAuthorization = scheme;
             Authorization = authorization;
             return this;
+        }
+
+        internal void ApplyToRequester(HttpRequestMessage requester)
+        {
+            requester.Content = Body;
+            foreach (var header in Headers)
+            {
+                requester.Headers.Append(header.Key, header.Value);
+            }
+
+            if (SchemeAuthorization != null && Authorization != null)
+            {
+                requester.Headers.Authorization = new HttpCredentialsHeaderValue(SchemeAuthorization, Authorization);
+            }
         }
     }
 }

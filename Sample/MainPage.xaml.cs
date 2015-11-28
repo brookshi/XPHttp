@@ -34,7 +34,10 @@ namespace Sample
         {
             this.InitializeComponent();
             XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/")
-                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent","123")
+                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent", "123")
+                .SetAuthorization("123", "456")
+                .SetCookeie("cookie1", "cookie1 value")
+                .SetCookeie("cookie2", "cookie2 value")
                 .SetTimeOut(45)
                 .SetRetryTimes(3)
                 .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed)
@@ -58,6 +61,7 @@ namespace Sample
         {
             NewtonsoftJsonSerializer.SetDateFormats("yyyy-MM-dd");
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
+                .SetAuthorization("000", "789")
                 .AddUrlSegements("action", "get", "date", "latest");
 
             var obj = await XPHttpClient.DefaultClient.GetAsync<RootObject>("stories/{date}", reqParam);
