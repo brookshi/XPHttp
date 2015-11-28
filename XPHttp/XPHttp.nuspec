@@ -16,6 +16,7 @@
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Microsoft.CSharp" version="4.0.0" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
         <dependency id="System.Collections" version="4.0.10" />
         <dependency id="System.Diagnostics.Debug" version="4.0.10" />
         <dependency id="System.Diagnostics.Tools" version="4.0.0" />

@@ -27,12 +27,12 @@ namespace XPHttp.Serializer
 
         static SerializerFactory()
         {
-            SetSerializer("application/json", new SimpleJsonSerializer());
-            SetSerializer("text/json", new SimpleJsonSerializer());
-            SetSerializer("text/x-json", new SimpleJsonSerializer());
-            SetSerializer("text/javascript", new SimpleJsonSerializer());
-            SetSerializer("*+json", new SimpleJsonSerializer());
-            SetSerializer("*", new SimpleJsonSerializer());
+            SetSerializer("application/json", new NewtonsoftJsonSerializer());
+            SetSerializer("text/json", new NewtonsoftJsonSerializer());
+            SetSerializer("text/x-json", new NewtonsoftJsonSerializer());
+            SetSerializer("text/javascript", new NewtonsoftJsonSerializer());
+            SetSerializer("*+json", new NewtonsoftJsonSerializer());
+            SetSerializer("*", new NewtonsoftJsonSerializer());
             //SetSerializer("application/xml", new XmlSerializer());
             //SetSerializer("text/xml", new XmlSerializer());
             //SetSerializer("*+xml", new XmlSerializer());

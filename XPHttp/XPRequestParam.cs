@@ -26,6 +26,8 @@ namespace XPHttp
     {
         public IHttpContent Body { get; set; }
 
+        public string Authorization { get; set; }
+
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
         public Dictionary<string, string> QueryStrings { get; } = new Dictionary<string, string>();
@@ -124,6 +126,12 @@ namespace XPHttp
         public XPRequestParam SetStreamBody(IInputStream body)
         {
             Body = new HttpStreamContent(body);
+            return this;
+        }
+
+        public XPRequestParam SetAuthorization(string authorization)
+        {
+            Authorization = authorization;
             return this;
         }
     }

@@ -14,6 +14,10 @@
 //   limitations under the License. 
 #endregion
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
+
 namespace XPHttp.Serializer
 {
     public class JsonSerializer : ISerializer
@@ -41,9 +45,29 @@ namespace XPHttp.Serializer
             return SimpleJson.SimpleJson.DeserializeObject<T>(content);
         }
 
-        public static void SetDateFormats(params string[] formats)
+        public static void SetDateFormats(string format)
         {
-            SimpleJson.SimpleJson.SetDateFormats(formats);
+            SimpleJson.SimpleJson.SetDateFormats(format);
+        }
+    }
+
+    public class NewtonsoftJsonSerializer : ISerializer
+    {
+        static DateTimeConverterBase _dateTimeConverter;
+
+        public string Serialize(object obj)
+        {
+            return _dateTimeConverter == null ? JsonConvert.SerializeObject(obj) : JsonConvert.SerializeObject(obj, _dateTimeConverter);
+        }
+
+        public T Deserialize<T>(string content)
+        {
+            return _dateTimeConverter == null ? JsonConvert.DeserializeObject<T>(content) : JsonConvert.DeserializeObject<T>(content, _dateTimeConverter);
+        }
+
+        public static void SetDateFormats(string format)
+        {
+            _dateTimeConverter = new IsoDateTimeConverter() { DateTimeFormat = format };
         }
     }
 }

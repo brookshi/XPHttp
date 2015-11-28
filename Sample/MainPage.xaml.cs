@@ -56,6 +56,7 @@ namespace Sample
 
         public async void GetTask()
         {
+            NewtonsoftJsonSerializer.SetDateFormats("yyyy-MM-dd");
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
                 .AddUrlSegements("action", "get", "date", "latest");
 
@@ -68,9 +69,6 @@ namespace Sample
 
         public void Post()
         {
-            SerializerFactory.ReplaceSerializer(typeof(JsonSerializer), new SimpleJsonSerializer());
-            SimpleJsonSerializer.SetDateFormats("yyyy-MM-dd");
-
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
                 .AddUrlSegements("action", "get", "date", "latest")
                 .SetBody(new HttpJsonContent(new { a="a", b=DateTime.Now }));
