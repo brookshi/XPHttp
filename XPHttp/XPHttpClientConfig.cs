@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using XPHttp.HttpFilter;
@@ -24,12 +25,15 @@ namespace XPHttp
 {
     public class XPHttpClientConfig
     {
-        public XPHttpClientConfig(HttpClient httpClient, ICustomHttpFilter retryHttpFilter, Action applyConfig)
+        public XPHttpClientConfig(XPHttpClient xpHttpClient, HttpClient httpClient, ICustomHttpFilter retryHttpFilter, Action applyConfig)
         {
+            _client = xpHttpClient;
             DefaultRequestHeader = httpClient.DefaultRequestHeaders;
             CustomHttpFilter = retryHttpFilter;
             ApplyConfig = applyConfig;
         }
+
+        private XPHttpClient _client;
 
         private static HttpStatusCode[] _defaultHttStatuspCodeForRetry = { HttpStatusCode.ServiceUnavailable };
 
@@ -46,6 +50,28 @@ namespace XPHttp
         public List<HttpStatusCode> HttpStatusCodesForRetry { get; set; } = new List<HttpStatusCode>(_defaultHttStatuspCodeForRetry);
 
         public ICustomHttpFilter CustomHttpFilter { get; private set; }
+
+        public UnicodeEncoding? ContentEncoding { get; set; } = null;
+
+        public string MediaType { get; set; } = null;
+
+        public XPHttpClientConfig SetContentEncoding(UnicodeEncoding encoding)
+        {
+            ContentEncoding = encoding;
+            return this;
+        }
+
+        public XPHttpClientConfig SetMediaType(string mediaType)
+        {
+            MediaType = mediaType;
+            return this;
+        }
+
+        public XPHttpClientConfig SetUseHttpCache(bool bUse)
+        {
+            _client.SetCache(bUse);
+            return this;
+        }
 
         public XPHttpClientConfig SetBaseUrl(string baseUrl)
         {

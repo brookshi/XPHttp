@@ -14,6 +14,7 @@
 //   limitations under the License. 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using Windows.Data.Json;
 using Windows.Storage.Streams;
@@ -31,11 +32,35 @@ namespace XPHttp
 
         public string Authorization { get; set; }
 
+        public DateTime? IfModifiedSince { get; set; } = null;
+
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
         public Dictionary<string, string> QueryStrings { get; } = new Dictionary<string, string>();
 
         public Dictionary<string, string> UrlSegments { get; } = new Dictionary<string, string>();
+
+        public UnicodeEncoding? ContentEncoding { get; set; } = null;
+
+        public string MediaType { get; set; } = null;
+
+        public XPRequestParam SetContentEncoding(UnicodeEncoding encoding)
+        {
+            ContentEncoding = encoding;
+            return this;
+        }
+
+        public XPRequestParam SetMediaType(string mediaType)
+        {
+            MediaType = mediaType;
+            return this;
+        }
+
+        public XPRequestParam SetIfModifiedSince(DateTime dt)
+        {
+            IfModifiedSince = dt;
+            return this;
+        }
 
         public XPRequestParam AddHeader(string key, string value)
         {
@@ -131,9 +156,11 @@ namespace XPHttp
             return this;
         }
 
-        internal void ApplyToRequester(HttpRequestMessage requester)
+        internal void ApplyToRequester(HttpRequestMessage requester, XPHttpClientConfig config)
         {
+            HandleBody(config);
             requester.Content = Body;
+
             foreach (var header in Headers)
             {
                 requester.Headers.Append(header.Key, header.Value);
@@ -142,6 +169,48 @@ namespace XPHttp
             if (SchemeAuthorization != null && Authorization != null)
             {
                 requester.Headers.Authorization = new HttpCredentialsHeaderValue(SchemeAuthorization, Authorization);
+            }
+
+            if (IfModifiedSince.HasValue)
+            {
+                requester.Headers.IfModifiedSince = new DateTimeOffset(IfModifiedSince.Value);
+            }
+        }
+
+        private async void HandleBody(XPHttpClientConfig config)
+        {
+            if (Body is HttpStringContent)
+            {
+                var content = await Body.ReadAsStringAsync();
+                if (ContentEncoding == null && MediaType == null)
+                {
+                    if (config.ContentEncoding != null && config.MediaType != null)
+                    {
+                        Body = new HttpStringContent(content, config.ContentEncoding.Value, config.MediaType);
+                    }
+                    else if (config.ContentEncoding != null)
+                    {
+                        Body = new HttpStringContent(content, config.ContentEncoding.Value);
+                    }
+                }
+                else if (MediaType == null)
+                {
+                    if (config.MediaType != null)
+                    {
+                        Body = new HttpStringContent(content, ContentEncoding.Value, config.MediaType);
+                    }
+                }
+                else if (ContentEncoding == null)
+                {
+                    if (config.ContentEncoding != null)
+                    {
+                        Body = new HttpStringContent(content, config.ContentEncoding.Value, MediaType);
+                    }
+                }
+                else
+                {
+                    Body = new HttpStringContent(content, ContentEncoding.Value, MediaType);
+                }
             }
         }
     }

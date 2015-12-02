@@ -39,7 +39,8 @@ namespace XPHttp
 
         public XPHttpClientConfig HttpConfig { get; private set; }
 
-        public XPRequestParam RequestParamBuilder {
+        public XPRequestParam RequestParamBuilder
+        {
             get
             {
                 return new XPRequestParam();
@@ -50,7 +51,7 @@ namespace XPHttp
         {
             _httpRetryFilter = new HttpRetryFilter();
             _httpClient = new HttpClient(_httpRetryFilter);
-             HttpConfig = new XPHttpClientConfig(_httpClient, _httpRetryFilter, ApplyConfig);
+            HttpConfig = new XPHttpClientConfig(this, _httpClient, _httpRetryFilter, ApplyConfig);
             ApplyConfig();
         }
 
@@ -59,6 +60,20 @@ namespace XPHttp
             _httpRetryFilter.RetryTimes = HttpConfig.RetryTimes;
             _httpRetryFilter.RetryHttpCodes = HttpConfig.HttpStatusCodesForRetry;
             HttpConfig.CustomHttpFilter.InnerFilter = _baseFilter;
+        }
+
+        internal void SetCache(bool useCache)
+        {
+            if (useCache)
+            {
+                _baseFilter.CacheControl.ReadBehavior = HttpCacheReadBehavior.Default;
+                _baseFilter.CacheControl.WriteBehavior = HttpCacheWriteBehavior.Default;
+            }
+            else
+            {
+                _baseFilter.CacheControl.ReadBehavior = HttpCacheReadBehavior.MostRecent;
+                _baseFilter.CacheControl.WriteBehavior = HttpCacheWriteBehavior.NoCache;
+            }
         }
 
         string BuildUrl(string functionUrl, XPRequestParam param)
@@ -82,7 +97,10 @@ namespace XPHttp
 
         void ConfigRequest(HttpRequestMessage request, XPRequestParam httpParam)
         {
-            httpParam.ApplyToRequester(request);
+            if (httpParam == null)
+                return;
+
+            httpParam.ApplyToRequester(request, HttpConfig);
         }
 
         public void GetAsync(string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
@@ -138,11 +156,14 @@ namespace XPHttp
 
         public async void SendRequestAsync(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
         {
+            if (responseHandler == null)
+                responseHandler = new XPResponseHandler();
+
             HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
 
             ConfigRequest(request, httpParam);
 
-            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p=> { if(responseHandler.OnProgress != null) responseHandler.OnProgress(p); });
+            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p => { if (responseHandler.OnProgress != null) responseHandler.OnProgress(p); });
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             if (HttpConfig.TimeOut != int.MaxValue && HttpConfig.TimeOut > 0)
@@ -158,7 +179,7 @@ namespace XPHttp
             }
             catch (TaskCanceledException)
             {
-                if(responseHandler.OnCancel != null)
+                if (responseHandler.OnCancel != null)
                 {
                     responseHandler.OnCancel(request);
                 }
@@ -202,12 +223,12 @@ namespace XPHttp
             }
             catch (TaskCanceledException)
             {
-                if(onCancel != null)
+                if (onCancel != null)
                     onCancel(request);
 
                 return default(T);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return default(T);
             }

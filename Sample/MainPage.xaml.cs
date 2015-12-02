@@ -40,6 +40,9 @@ namespace Sample
                 .SetCookeie("cookie2", "cookie2 value")
                 .SetTimeOut(45)
                 .SetRetryTimes(3)
+                .SetUseHttpCache(true)
+                .SetContentEncoding(Windows.Storage.Streams.UnicodeEncoding.Utf8)
+                .SetMediaType("application/x-www-form-urlencoded")
                 .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed)
                 .AppendHttpFilter(new MyHttpFilter())
                 .ApplyConfig();
@@ -75,7 +78,11 @@ namespace Sample
         {
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
                 .AddUrlSegements("action", "get", "date", "latest")
-                .SetBody(new HttpJsonContent(new { a="a", b=DateTime.Now }));
+                .SetContentEncoding(Windows.Storage.Streams.UnicodeEncoding.Utf16BE)
+                //.SetMediaType("Application/json")
+                .SetIfModifiedSince(DateTime.Now)
+                .SetStringBody("data=1");
+                //.SetBody(new HttpJsonContent(new { a="a", b=DateTime.Now }));
 
             XPHttpClient.DefaultClient.PostAsync("stories/{date}", reqParam, new XPResponseHandler<RootObject>()
             {
