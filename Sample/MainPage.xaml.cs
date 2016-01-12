@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -33,18 +34,23 @@ namespace Sample
         public MainPage()
         {
             this.InitializeComponent();
-            XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/")
-                .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent", "123")
-                .SetAuthorization("123", "456")
-                .SetCookeie("cookie1", "cookie1 value")
-                .SetCookeie("cookie2", "cookie2 value")
-                .SetTimeOut(45)
-                .SetRetryTimes(3)
-                .SetUseHttpCache(true)
-                .SetContentEncoding(Windows.Storage.Streams.UnicodeEncoding.Utf8)
-                .SetMediaType("application/x-www-form-urlencoded")
-                .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed)
-                .AppendHttpFilter(new MyHttpFilter())
+            //XPHttpClient.DefaultClient.HttpConfig.SetBaseUrl("http://news-at.zhihu.com/api/4/")
+            //    .SetDefaultHeaders("Host", "news-at.zhihu.com", "UserAgent", "123")
+            //    .SetAuthorization("123", "456")
+            //    .SetCookeie("cookie1", "cookie1 value")
+            //    .SetCookeie("cookie2", "cookie2 value")
+            //    .SetTimeOut(45)
+            //    .SetRetryTimes(3)
+            //    .SetUseHttpCache(true)
+            //    .SetContentEncoding(Windows.Storage.Streams.UnicodeEncoding.Utf8)
+            //    .SetMediaType("application/x-www-form-urlencoded")
+            //    .AddRetryStatusCode(HttpStatusCode.MethodNotAllowed)
+            //    .AppendHttpFilter(new MyHttpFilter())
+            //    .ApplyConfig();
+
+            XPHttpClient.DefaultClient.HttpConfig
+                .SetBaseUrl("http://news-at.zhihu.com/api/4/")
+                .SetUseHttpCache(false)
                 .ApplyConfig();
         }
 
@@ -60,7 +66,7 @@ namespace Sample
             });
         }
 
-        public async void GetTask()
+        public async Task GetTask()
         {
             NewtonsoftJsonSerializer.SetDateFormats("yyyy-MM-dd");
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
@@ -72,6 +78,25 @@ namespace Sample
                 txt_success.Text = "failed";
             else
                 txt_success.Text = "success: " + obj.date + "\r\n" + obj.stories[0].id;
+        }
+
+        public Task<T> GetLatest<T>()
+        {
+            var httpParam = XPHttpClient.DefaultClient.RequestParamBuilder
+               .AddUrlSegements("storyid", "");
+
+            return XPHttpClient.DefaultClient.GetAsync<T>("stories/latest", httpParam);
+        }
+
+        public async void PostWithTask()
+        {
+            var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
+               .AddUrlSegements("action", "get", "date", "latest")
+               .SetContentEncoding(Windows.Storage.Streams.UnicodeEncoding.Utf16BE)
+               .SetIfModifiedSince(DateTime.Now)
+               .SetStringBody("data=1");
+            await XPHttpClient.DefaultClient.PostAsync("stories/{date}", reqParam);
+            Debug.Write("data response");
         }
 
         public void Post()
@@ -94,15 +119,17 @@ namespace Sample
             });
         }
 
-        private void Get_Click(object sender, RoutedEventArgs e)
+        private async void Get_Click(object sender, RoutedEventArgs e)
         {
             //Get();
-            GetTask();
+            var obj = await GetLatest<RootObject>();
+            txt_success.Text = obj.date;
         }
 
         private void Post_Click(object sender, RoutedEventArgs e)
         {
-            Post();
+            //Post();
+            PostWithTask();
         }
     }
 

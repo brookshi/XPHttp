@@ -153,23 +153,40 @@ namespace XPHttp
             return await SendRequestAsync<T>(HttpMethod.Patch, functionUrl, httpParam, onProgress, onCancel);
         }
 
+        public async Task GetAsync(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            await SendRequestAsync(HttpMethod.Get, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task PostAsync(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            await SendRequestAsync(HttpMethod.Post, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task PutAsync(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            await SendRequestAsync(HttpMethod.Put, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task DeleteAsync(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            await SendRequestAsync(HttpMethod.Delete, functionUrl, httpParam, onProgress, onCancel);
+        }
+
+        public async Task PatchAsync(string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress = null, Action<HttpRequestMessage> onCancel = null)
+        {
+            await SendRequestAsync(HttpMethod.Patch, functionUrl, httpParam, onProgress, onCancel);
+        }
+
 
         public async void SendRequestAsync(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, IResponseHandler responseHandler)
         {
             if (responseHandler == null)
                 responseHandler = new XPResponseHandler();
 
-            HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
-
-            ConfigRequest(request, httpParam);
-
-            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p => { if (responseHandler.OnProgress != null) responseHandler.OnProgress(p); });
-
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            if (HttpConfig.TimeOut != int.MaxValue && HttpConfig.TimeOut > 0)
-            {
-                cancellationTokenSource.CancelAfter(HttpConfig.TimeOut * 1000);
-            }
+            HttpRequestMessage request = BuildHttpRequest(httpMethod, functionUrl, httpParam);
+            IProgress<HttpProgress> progress = BuildHttpProgress(responseHandler.OnProgress);
+            CancellationTokenSource cancellationTokenSource = BuildCancelTokenSource();
 
             HttpResponseMessage response = null;
             try
@@ -195,17 +212,9 @@ namespace XPHttp
 
         public async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress, Action<HttpRequestMessage> onCancel)
         {
-            HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
-
-            ConfigRequest(request, httpParam);
-
-            IProgress<HttpProgress> progress = new Progress<HttpProgress>(p => { if (onProgress != null) onProgress(p); });
-
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            if (HttpConfig.TimeOut != int.MaxValue && HttpConfig.TimeOut > 0)
-            {
-                cancellationTokenSource.CancelAfter(HttpConfig.TimeOut * 1000);
-            }
+            HttpRequestMessage request = BuildHttpRequest(httpMethod, functionUrl, httpParam);
+            IProgress<HttpProgress> progress = BuildHttpProgress(onProgress);
+            CancellationTokenSource cancellationTokenSource = BuildCancelTokenSource();
 
             try
             {
@@ -232,6 +241,52 @@ namespace XPHttp
             {
                 return default(T);
             }
+        }
+
+        public async Task SendRequestAsync(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam, Action<HttpProgress> onProgress, Action<HttpRequestMessage> onCancel)
+        {
+            HttpRequestMessage request = BuildHttpRequest(httpMethod, functionUrl, httpParam);
+            IProgress<HttpProgress> progress = BuildHttpProgress(onProgress);
+            CancellationTokenSource cancellationTokenSource = BuildCancelTokenSource();
+
+            try
+            {
+                await _httpClient.SendRequestAsync(request).AsTask(cancellationTokenSource.Token, progress);
+               
+            }
+            catch (TaskCanceledException)
+            {
+                if (onCancel != null)
+                    onCancel(request);
+            }
+            catch (Exception)
+            {
+                throw new Exception("send request error");
+            }
+        }
+
+        private CancellationTokenSource BuildCancelTokenSource()
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            if (HttpConfig.TimeOut != int.MaxValue && HttpConfig.TimeOut > 0)
+            {
+                cancellationTokenSource.CancelAfter(HttpConfig.TimeOut * 1000);
+            }
+
+            return cancellationTokenSource;
+        }
+
+        private static IProgress<HttpProgress> BuildHttpProgress(Action<HttpProgress> onProgress)
+        {
+            return new Progress<HttpProgress>(p => { if (onProgress != null) onProgress(p); });
+        }
+
+        private HttpRequestMessage BuildHttpRequest(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(httpMethod, new Uri(BuildUrl(functionUrl, httpParam)));
+
+            ConfigRequest(request, httpParam);
+            return request;
         }
     }
 }
