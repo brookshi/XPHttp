@@ -49,21 +49,29 @@ namespace Sample
             //    .ApplyConfig();
 
             XPHttpClient.DefaultClient.HttpConfig
-                .SetBaseUrl("http://news-at.zhihu.com/api/4/")
+                .SetBaseUrl("http://news-at.zhihu.com/api/7/")
                 .SetUseHttpCache(false)
                 .ApplyConfig();
         }
 
-        public void Get()
+        public async void Get()
         {
             var reqParam = XPHttpClient.DefaultClient.RequestParamBuilder.AddHeader("referer", "gugugu", "UserAgent", "321")
                 .AddUrlSegements("action", "get", "date", "latest");
 
-            XPHttpClient.DefaultClient.GetAsync("stories/{date}", reqParam, new XPResponseHandler<RootObject>() {
+            XPHttpClient.DefaultClient.GetAsync("stories/{date}", reqParam, new XPResponseHandler<RootObject>()
+            {
                 OnCancel = requestMsg => { txt_cancel.Text = "cancel"; },
                 OnFailed = async responseMsg => { txt_failed.Text = "failed: " + await responseMsg.Content.ReadAsStringAsync(); },
-                OnSuccess = async (responseMsg, obj) => { txt_success.Text = "success: " + await responseMsg.Content.ReadAsStringAsync() + "\r\n"+obj.stories[0].id; },
+                OnSuccess = async (responseMsg, obj) => { txt_success.Text = "success: " + await responseMsg.Content.ReadAsStringAsync() + "\r\n" + obj.stories[0].id; },
             });
+            //var content = await RequestHotCircles();
+            //txt_success.Text = content;
+        }
+
+        public static Task<string> RequestHotCircles()
+        {
+            return XPHttpClient.DefaultClient.GetAsync<string>("explore/circles/hot", null);
         }
 
         public async Task GetTask()
@@ -121,9 +129,9 @@ namespace Sample
 
         private async void Get_Click(object sender, RoutedEventArgs e)
         {
-            //Get();
-            var obj = await GetLatest<RootObject>();
-            txt_success.Text = obj.date;
+            Get();
+            //var obj = await GetLatest<RootObject>();
+            //txt_success.Text = obj.date;
         }
 
         private void Post_Click(object sender, RoutedEventArgs e)

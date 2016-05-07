@@ -225,16 +225,17 @@ namespace XPHttp
                         return default(T);
 
                     var content = await response.Content.ReadAsStringAsync();
+                    if(content is T)
+                        return (T)Convert.ChangeType(content, typeof(T));
+
                     var serializer = SerializerFactory.GetSerializer(response.Content.Headers.ContentType.MediaType);
 
-                    return serializer.Deserialize<T>(content);
+                    return serializer == null ? default(T) : serializer.Deserialize<T>(content);
                 }).Unwrap();
             }
             catch (TaskCanceledException)
             {
-                if (onCancel != null)
-                    onCancel(request);
-
+                onCancel?.Invoke(request);
                 return default(T);
             }
             catch (Exception)
