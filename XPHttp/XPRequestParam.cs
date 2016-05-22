@@ -44,6 +44,8 @@ namespace XPHttp
 
         public string MediaType { get; set; } = null;
 
+        public bool NeedBaseUrl { get; set; } = true;
+
         public XPRequestParam SetContentEncoding(UnicodeEncoding encoding)
         {
             ContentEncoding = encoding;
@@ -153,6 +155,12 @@ namespace XPHttp
         {
             SchemeAuthorization = scheme;
             Authorization = authorization;
+            return this;
+        }
+
+        public XPRequestParam SetNeedBaseUrl(bool needBaseUrl)
+        {
+            NeedBaseUrl = needBaseUrl;
             return this;
         }
 

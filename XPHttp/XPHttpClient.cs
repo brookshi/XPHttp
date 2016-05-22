@@ -78,7 +78,7 @@ namespace XPHttp
 
         string BuildUrl(string functionUrl, XPRequestParam param)
         {
-            var url = HttpConfig.BaseUrl + functionUrl;
+            var url = (param == null || param.NeedBaseUrl ? HttpConfig.BaseUrl : "") + functionUrl;
             if (param != null)
             {
                 foreach (var segment in param.UrlSegments)
@@ -196,17 +196,11 @@ namespace XPHttp
             }
             catch (TaskCanceledException)
             {
-                if (responseHandler.OnCancel != null)
-                {
-                    responseHandler.OnCancel(request);
-                }
+                responseHandler.OnCancel?.Invoke(request);
             }
             catch (Exception ex)
             {
-                if (responseHandler.OnFailed != null)
-                {
-                    responseHandler.OnFailed(new HttpResponseMessage() { Content = new HttpStringContent(ex.ToString()) });
-                }
+                responseHandler.OnFailed?.Invoke(new HttpResponseMessage() { Content = new HttpStringContent(ex.ToString()) });
             }
         }
 
@@ -221,8 +215,6 @@ namespace XPHttp
                 return await _httpClient.SendRequestAsync(request).AsTask(cancellationTokenSource.Token, progress).ContinueWith(async responseTask =>
                 {
                     var response = responseTask.Result;
-                    if (!response.IsSuccessStatusCode)
-                        return default(T);
 
                     var content = await response.Content.ReadAsStringAsync();
                     if(content is T)
@@ -257,8 +249,7 @@ namespace XPHttp
             }
             catch (TaskCanceledException)
             {
-                if (onCancel != null)
-                    onCancel(request);
+                onCancel?.Invoke(request);
             }
             catch (Exception)
             {
@@ -279,7 +270,7 @@ namespace XPHttp
 
         private static IProgress<HttpProgress> BuildHttpProgress(Action<HttpProgress> onProgress)
         {
-            return new Progress<HttpProgress>(p => { if (onProgress != null) onProgress(p); });
+            return new Progress<HttpProgress>(p => { onProgress?.Invoke(p); });
         }
 
         private HttpRequestMessage BuildHttpRequest(HttpMethod httpMethod, string functionUrl, XPRequestParam httpParam)
